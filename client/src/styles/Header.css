@@ -108,7 +108,7 @@
     right: 0;
 }
 
-#btnCerrarMenu {
+.btnCerrarMenu {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -158,7 +158,7 @@ footer {
     margin-right: 1rem;
 }
 
-#footer-columna1{
+.footer-columna1{
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -173,7 +173,7 @@ footer {
   letter-spacing: 1px;
 }
 
-#footer-columna1 > a{
+.footer-columna1 > a{
     text-decoration: none;
     color: #505050;
     transition: all 0.3s ease;
@@ -181,7 +181,7 @@ footer {
     padding-bottom: 3px;
      width: fit-content;
 }
-#footer-columna1 > a::after {
+.footer-columna1 > a::after {
   content: "";
   position: absolute;
   left: 0;                 /* línea arranca desde la izquierda del texto */
@@ -193,8 +193,8 @@ footer {
   transform-origin: left; 
   transition: transform 0.3s ease-out;
 }
-#footer-columna1 > a:hover{ color: #1b1b1b; }
-#footer-columna1 > a:hover::after{transform: scaleX(0);}
+.footer-columna1 > a:hover{ color: #1b1b1b; }
+.footer-columna1 > a:hover::after{transform: scaleX(0);}
 
 .contactos{
   display: flex;
@@ -214,14 +214,14 @@ footer {
   transform: scale(1.05);
 }
 
-#footer-columna2{
+.footer-columna2{
   display: block;
   width: 50vw;
   text-align: left;
   gap: 10px;
 }
 
-#footer-columna2 .ubi-taller p:first-child {
+.footer-columna2 .ubi-taller p:first-child {
   font-family: "Playfair Display", sans-serif;
   font-weight: 700;   
   letter-spacing: 1px;     
@@ -230,12 +230,12 @@ footer {
   margin-bottom: 0.3rem;
 }
 
-#footer-columna2 .ubi-taller p:nth-child(2) {
+.footer-columna2 .ubi-taller p:nth-child(2) {
   font-size: 0.9rem;
   margin: 0;
 }
 
-#footer-columna2 .horarios {
+.footer-columna2 .horarios {
   margin-top: 1rem;
   display: flex;
   flex: row;
@@ -247,14 +247,14 @@ footer {
   height: 40px;
 }
 
-#footer-columna2 .horarios p {
+.footer-columna2 .horarios p {
   font-size: 0.85rem;
   margin: 0.2rem 0;
   position: relative;
   padding-left: 1.2rem;       
 }
 
-#footer-columna2 .horarios p::before {             
+.footer-columna2 .horarios p::before {             
   color: #c47a6d;            
 }
 
@@ -274,10 +274,6 @@ footer {
 
   .header-right {
     gap: 20px;
-  }
-
-  #menu,#btnCerrarMenu {
-    display: none;
   }
 
   .header-nav {
@@ -374,22 +370,22 @@ footer {
     cursor: pointer;
 }
 
-#loginForm{
+.loginForm{
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-#iconoUsuario {
+.iconoUsuario {
   color: #333; 
   transition: color 0.3s ease;
 }
 
-#iconoUsuario:hover, #iconoUsuario.logueado:hover{
+.iconoUsuario:hover, #iconoUsuario.logueado:hover{
   color: rgba(212, 164, 55, 0.5); 
 }
 
-#iconoUsuario.logueado {
+.iconoUsuario.logueado {
   color: #87A96B; 
 }
 
@@ -439,13 +435,13 @@ footer {
 .avatar-container label:nth-child(5) {
   grid-column: 3; 
 }
-#iconoUsuario img.avatar-icono {
+.iconoUsuario img.avatar-icono {
   width: 35px;
   height: 35px;
   border-radius: 50%;
   border: 2px solid #87A96B; 
   object-fit: cover;
 }
-#avatarMini {
+.avatarMini {
   display: none;
 }

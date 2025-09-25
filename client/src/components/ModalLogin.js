@@ -39,14 +39,14 @@ function ModalLogin({ show, onClose }) {
         <span className="close" onClick={onClose}>&times;</span>
         <img id="avatarMini" alt="Avatar seleccionado" />
         <h2>Iniciar Sesión</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="loginForm">
           <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} placeholder="Nombre" />
           <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
           
           <h3>Seleccioná tu Avatar</h3>
           <div className="avatar-container">
             <label>
-              <input type="radio" name="avatar" value="castor" />
+              <input type="radio" name="avatar" value="castor" className="iconoUsuario"/>
               <img src={av_castor} alt="Castor" />
             </label>
             <label>

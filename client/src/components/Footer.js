@@ -9,11 +9,11 @@ import icono_Calendar from '../images/horario.png';
 function Footer() {
   return (
     <footer>
-      <div class="footer-header">
-        <div id="footer-columna1">
-            <p class="slogan">Redescubriendo el arte de vivir desde 2025</p>
+      <div className="footer-header">
+        <div className="footer-columna1">
+            <p className="slogan">Redescubriendo el arte de vivir desde 2025</p>
             <Link to="/contacto">Contacto</Link>
-            <div class="contactos">
+            <div className="contactos">
                 <a href="https://alt-5a31a0302d72d.blackboard.com/bbcswebdav/pid-982156-dt-content-rid-14612411_1/courses/FSD.00-43441/Instagram%20copy/index.html?one_hash=09B6754534A106E6236E16847FA662BA&f_hash=4B189AB03587F43B77B3CE8457CEF5FA"
                 target="_blank" rel="noopener noreferrer">
                     <img src={icono_Ig} alt="logo instagram" id="icono-ig-contacto"/>
@@ -26,12 +26,12 @@ function Footer() {
             <p>+54 11 4567-8900</p>
             <p>info@hermanosjota.com.ar</p>
         </div>
-        <div id="footer-columna2">
-            <div class="ubi-taller">
+        <div className="footer-columna2">
+            <div className="ubi-taller">
                 <p>Hermanos Jota — Casa Taller</p>
                 <p><b>Barrio de San Cristóbal</b>, Av. San Juan 2847 - CABA</p>
             </div> 
-            <div class="horarios">
+            <div className="horarios">
                 <img src={icono_Calendar} alt="icono-horario"/>
                 <div>
                     <p>Lunes a Viernes: 10:00 - 19:00 hs.</p>

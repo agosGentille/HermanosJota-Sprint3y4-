@@ -9,11 +9,18 @@ import menu from '../images/iconoMenu.png';
 function Header() {
   const [showLogin, setShowLogin] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
   const [usuario, setUsuario] = useState({ nombre: null, avatar: null });
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
+  // Detectar cambios de tamaño de pantalla
   useEffect(() => {
-    // Cargar usuario guardado al montar
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Cargar usuario guardado al montar
+  useEffect(() => {
     const nombreGuardado = localStorage.getItem("nombreUsuario");
     const avatarGuardado = localStorage.getItem("avatarUsuario");
     if (nombreGuardado) setUsuario({ nombre: nombreGuardado, avatar: avatarGuardado });
@@ -32,15 +39,20 @@ function Header() {
     }
   };
 
-  return (
-    <header>
+
+ return (
+    <header className='header-sticky'>
       <div className="header-marca">
         <img src={logo} alt="Logo Hermanos Jota" id="logo" />
         <p>Hermanos Jota</p>
       </div>
-    
-      <nav className={`header-nav ${menuOpen ? 'open' : ''}`}>
-        <span className="close" onClick={() => setMenuOpen(false)}>&times;</span>
+
+      <nav className={`header-nav ${isMobile && menuOpen ? 'open' : ''}`}>
+        {isMobile && (
+          <span className="close" onClick={() => setMenuOpen(false)}>
+            &times;
+          </span>
+        )}
         <ul>
           <li><Link to="/">INICIO</Link></li>
           <li><Link to="/">PRODUCTOS</Link></li>
@@ -49,7 +61,6 @@ function Header() {
       </nav>
 
       <div className="header-right">
-        {/* Icono de usuario que abre el modal */}
         <span
           className="material-symbols-outlined header-usuario"
           onClick={() => (usuario.nombre ? handleLogout() : setShowLogin(true))}
@@ -62,20 +73,21 @@ function Header() {
           )}
         </span>
 
-        {/* Modal */}
-        <ModalLogin show={showLogin} onClose={() => setShowLogin(false)} />
+        <ModalLogin show={showLogin} onClose={() => setShowLogin(false)} onLogin={handleLogin} />
 
         <span className="header-carrito material-symbols-outlined" id="carrito-icono" title="Carrito">
           shopping_bag
         </span>
         <span className="numerito" id="numerito">0</span>
 
-        <img
-          src={menu}
-          alt="Icono Hamburguesa Menu"
-          className="header-menu"
-          onClick={() => setMenuOpen(true)}
-        />
+        {isMobile && (
+          <img
+            src={menu}
+            alt="Icono Hamburguesa Menu"
+            className="header-menu"
+            onClick={() => setMenuOpen(true)}
+          />
+        )}
       </div>
     </header>
   );
