@@ -51,6 +51,7 @@ El sitio incluye:
 ---
 
 ## Estructura del Proyecto
+```
 /backend
 |-- server.js
 |-- routes/
@@ -68,17 +69,20 @@ El sitio incluye:
 |---- App.js
 |---- index.js
 |-- public/
-
+```
 ---
 
 ## Cómo instalar las Dependencias Utilizadas
 
 ### Para el Backend
+```
 cd backend
 npm install
 npm run dev
-
+```
 ### Para el Frontend
+```
 cd client
 npm install
 npm start
+```
