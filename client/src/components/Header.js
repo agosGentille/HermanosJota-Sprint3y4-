@@ -1,26 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ModalLogin from './ModalLogin';
 import '../styles/Header.css';
+/*Imports de Imágenes*/
+import logo from '../images/logo.svg';
+import menu from '../images/iconoMenu.png';
 
 function Header() {
   const [showLogin, setShowLogin] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const [usuario, setUsuario] = useState({ nombre: null, avatar: null });
+
+  useEffect(() => {
+    // Cargar usuario guardado al montar
+    const nombreGuardado = localStorage.getItem("nombreUsuario");
+    const avatarGuardado = localStorage.getItem("avatarUsuario");
+    if (nombreGuardado) setUsuario({ nombre: nombreGuardado, avatar: avatarGuardado });
+  }, []);
+
+  const handleLogin = ({ nombre, avatar }) => {
+    setUsuario({ nombre, avatar });
+  };
+
+  const handleLogout = () => {
+    if (window.confirm("¿Desea cerrar sesión?")) {
+      localStorage.removeItem("nombreUsuario");
+      localStorage.removeItem("emailUsuario");
+      localStorage.removeItem("avatarUsuario");
+      setUsuario({ nombre: null, avatar: null });
+    }
+  };
+
   return (
     <header>
       <div className="header-marca">
-        <img src="Images/logo.svg" alt="Logo Hermanos Jota" id="logo" />
+        <img src={logo} alt="Logo Hermanos Jota" id="logo" />
         <p>Hermanos Jota</p>
       </div>
     
       <nav className={`header-nav ${menuOpen ? 'open' : ''}`}>
-        <img
-          src="Images/icono-cerrar.png"
-          alt="Botón Cerrar"
-          id="btnCerrarMenu"
-          onClick={() => setMenuOpen(false)}
-        />
+        <span className="close" onClick={() => setMenuOpen(false)}>&times;</span>
         <ul>
           <li><Link to="/">INICIO</Link></li>
           <li><Link to="/">PRODUCTOS</Link></li>
@@ -31,13 +51,15 @@ function Header() {
       <div className="header-right">
         {/* Icono de usuario que abre el modal */}
         <span
-          className="header-usuario material-symbols-outlined"
-          id="iconoUsuario"
-          title="Iniciar Sesión"
-          onClick={() => setShowLogin(true)}
-          style={{ cursor: 'pointer' }}
+          className="material-symbols-outlined header-usuario"
+          onClick={() => (usuario.nombre ? handleLogout() : setShowLogin(true))}
+          title={usuario.nombre ? "Cerrar sesión" : "Iniciar sesión"}
         >
-          account_circle
+          {usuario.avatar ? (
+            <img src={`Images/Avatares/avatar-${usuario.avatar}.png`} alt="avatar" className="avatar-icono"/>
+          ) : (
+            "account_circle"
+          )}
         </span>
 
         {/* Modal */}
@@ -49,7 +71,7 @@ function Header() {
         <span className="numerito" id="numerito">0</span>
 
         <img
-          src="Images/iconoMenu.png"
+          src={menu}
           alt="Icono Hamburguesa Menu"
           className="header-menu"
           onClick={() => setMenuOpen(true)}
