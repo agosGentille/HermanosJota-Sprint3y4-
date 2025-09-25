@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import '../styles/Header.css';
 /*Imports de Imágenes*/
-import av_ardilla from '../images/Avatares/avatar-ardilla.png';
-import av_buho from '../images/Avatares/avatar-buho.png';
-import av_castor from '../images/Avatares/avatar-castor.png';
-import av_mapache from '../images/Avatares/avatar-mapache.png';
-import av_pajaro from '../images/Avatares/avatar-pajaro.png';
+import avatar_ardilla from '../images/Avatares/avatar-ardilla.png';
+import avatar_buho from '../images/Avatares/avatar-buho.png';
+import avatar_castor from '../images/Avatares/avatar-castor.png';
+import avatar_mapache from '../images/Avatares/avatar-mapache.png';
+import avatar_pajaro from '../images/Avatares/avatar-pajaro.png';
 
-function ModalLogin({ show, onClose }) {
+function ModalLogin({ show, onClose, onLogin }) {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
 
   useEffect(() => {
-    // Cargar usuario guardado al abrir modal
     const nombreGuardado = localStorage.getItem("nombreUsuario");
     const emailGuardado = localStorage.getItem("emailUsuario");
     const avatarGuardado = localStorage.getItem("avatarUsuario");
@@ -28,6 +27,10 @@ function ModalLogin({ show, onClose }) {
     localStorage.setItem("nombreUsuario", nombre);
     localStorage.setItem("emailUsuario", email);
     if(avatar) localStorage.setItem("avatarUsuario", avatar);
+
+    // Notificar al Header que se logueó
+    if (onLogin) onLogin({ nombre, avatar });
+
     onClose();
   };
   
@@ -37,7 +40,6 @@ function ModalLogin({ show, onClose }) {
     <div className="modal" style={{ display: show ? 'flex' : 'none' }}>
       <div className="modal-content">
         <span className="close" onClick={onClose}>&times;</span>
-        <img id="avatarMini" alt="Avatar seleccionado" />
         <h2>Iniciar Sesión</h2>
         <form onSubmit={handleSubmit} className="loginForm">
           <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} placeholder="Nombre" />
@@ -47,23 +49,23 @@ function ModalLogin({ show, onClose }) {
           <div className="avatar-container">
             <label>
               <input type="radio" name="avatar" value="castor" className="iconoUsuario"/>
-              <img src={av_castor} alt="Castor" />
+              <img src={avatar_castor} alt="Castor" />
             </label>
             <label>
               <input type="radio" name="avatar" value="buho" />
-              <img src={av_buho} alt="Búho" />
+              <img src={avatar_buho} alt="Búho" />
             </label>
             <label>
               <input type="radio" name="avatar" value="ardilla" />
-              <img src={av_ardilla} alt="Ardilla" />
+              <img src={avatar_ardilla} alt="Ardilla" />
             </label>
             <label>
               <input type="radio" name="avatar" value="pajaro" />
-              <img src={av_pajaro} alt="Pajaro Carpintero" />
+              <img src={avatar_pajaro} alt="Pajaro Carpintero" />
             </label>
             <label>
               <input type="radio" name="avatar" value="mapache" />
-              <img src={av_mapache} alt="Mapache" />
+              <img src={avatar_mapache} alt="Mapache" />
             </label>
           </div>
           <button type="submit">Iniciar Sesión</button>

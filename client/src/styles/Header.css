@@ -381,11 +381,11 @@ footer {
   transition: color 0.3s ease;
 }
 
-.iconoUsuario:hover, #iconoUsuario.logueado:hover{
+.iconoUsuario:hover, .header-usuario.logueado:hover{
   color: rgba(212, 164, 55, 0.5); 
 }
 
-.iconoUsuario.logueado {
+.header-usuario.logueado {
   color: #87A96B; 
 }
 
@@ -441,7 +441,4 @@ footer {
   border-radius: 50%;
   border: 2px solid #87A96B; 
   object-fit: cover;
-}
-.avatarMini {
-  display: none;
 }
