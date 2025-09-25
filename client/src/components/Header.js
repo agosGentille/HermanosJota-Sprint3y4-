@@ -1,13 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Header() {
   return (
     <header>
       <nav>
         <ul style={{ display: 'flex', gap: '10px', listStyle: 'none' }}>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Productos</a></li>
-          <li><a href="#">Contacto</a></li>
+          <li><Link to="/">Inicio</Link></li>
+          <li><Link to="/contacto">Contacto</Link></li>
         </ul>
       </nav>
     </header>
