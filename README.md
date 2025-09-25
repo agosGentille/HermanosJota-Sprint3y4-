@@ -14,7 +14,7 @@
 
 ## Descripción del Proyecto
 
-Este proyecto corresponde a la **Consigna Final - Sprint 3 y 4 de NEXUS**.  
+Este proyecto corresponde a la **Consigna Final - Sprint 3 y 4**.  
 Se trata de la segunda fase en la construcción de la plataforma de e-commerce para **Mueblería Hermanos Jota**, donde se da un salto tecnológico importante: se reconstruye el frontend usando **React** y se implementa un backend con **Node.js y Express**, creando una verdadera arquitectura cliente-servidor.
 
 El objetivo de esta entrega es:
