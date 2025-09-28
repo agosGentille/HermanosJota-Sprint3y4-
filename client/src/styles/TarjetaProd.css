@@ -1,0 +1,40 @@
+
+.tarjeta-producto {
+  flex: 0 0 360px; /*Ancho fijo para c/tarjeta*/
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: all 0.3s ease;
+  margin: 15px;
+  text-decoration: none;
+  scroll-snap-align: start;
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.tarjeta-producto.mostrar {
+  opacity: 1;
+  transform: translateX(0); /* vuelve a su posición */
+}
+
+.tarjeta-producto:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.tarjeta-foto {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background-color: rgb(245, 230, 211, 0.4);
+}
+
+.tarjeta-producto h3 {
+  font-family: "Playfair Display", sans-serif;
+  color: #333;
+}
+
+.tarjeta-producto p {
+  color: #c47a6d;
+}

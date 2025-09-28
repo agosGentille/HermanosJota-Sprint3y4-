@@ -72,13 +72,11 @@
 }
 .numerito {
   position: absolute;
+  bottom: 25px;    
+  right: 55px;
   bottom: -4px;    
   right: -4px;
-  background-color: #D4A437;
-  color: #fff;
-  border-radius: 50%;
-  font-weight: 600;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   padding: 0.15rem 0.35rem;
 }
 
@@ -312,8 +310,8 @@ footer {
 
   .numerito {
     font-size: 0.8rem;
-    bottom: -15px;    /* ajusta según necesidad */
-    right: -15px;
+    bottom: 15px;    /* ajusta según necesidad */
+    right: 15px;
   }
 
 }

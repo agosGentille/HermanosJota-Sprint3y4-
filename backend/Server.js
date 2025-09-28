@@ -1,13 +1,19 @@
 const express = require("express");
 const app = express();
 const PORT = 4000;
-const authRoutes = require("./routes/authRoutes");
 
 const cors = require("cors");
 app.use(cors()); // permite leer JSON en req.body
 app.use(express.json()); //parsea JSON para que no llegue undefined 
+const path = require('path');
 
-app.use("/api", authRoutes);   // /api/login
+const authRoutes = require("./routes/authRoutes");
+const productosRoutes = require("./routes/productos.js");
+
+app.use("/api", authRoutes);   
+app.use('/api/productos', productosRoutes); 
+
+app.use('/Images', express.static(path.join(__dirname, 'public/images')));
 
 // 404
 app.use((req, res) => {

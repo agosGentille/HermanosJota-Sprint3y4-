@@ -1,9 +1,148 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import '../styles/Home.css';
+//Carrusel inicial con slides:
+import Carrusel_Home from '../components/Carousel'
+//inspiraciones
+import inspo1 from '../images/Home/inspiracion1.png'
+import inspo2 from '../images/Home/inspiracion2.png'
+import inspo3 from '../images/Home/inspiracion3.png'
+//acabados naturales
+import aceite from '../images/Home/aceite-lino.png'
+import cera from '../images/Home/cera-abejas.jpeg'
+import tintes from '../images/Home/tintes-vegetales.jpg'
+//principios
+import Carrusel_Principios from '../components/ListNavegable'
+
+import ListProductos from '../components/TarjetasProductos';
 
 function Home() {
+  const [productos, setProductos] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:4000/api/productos') 
+      .then(res => res.json())
+      .then(data => {
+      // Modificamos la propiedad 'imagen' para que tenga la URL completa
+      const productosConUrl = data.map(p => ({
+        ...p,
+        imagen: `http://localhost:4000${p.imagen}`
+      }));
+      setProductos(productosConUrl);
+    })
+      .catch(err => console.error(err));
+  }, []);
+  console.log("Productos en render:", productos);
+
+  function obtenerAleatorios(array, n) {
+    const copia = [...array];
+    const resultado = [];
+    for (let i = 0; i < n; i++) {
+      if (copia.length === 0) break; // por si hay menos de n elementos
+      const indice = Math.floor(Math.random() * copia.length);
+      resultado.push(copia[indice]);
+      copia.splice(indice, 1); // removemos para no repetir
+    }
+    return resultado;
+  }
+    
   return (
     <main>
-      <h1>Este es el Home</h1>
+       <Carrusel_Home />
+        {/* Best Sellers */}
+        <section className="secc-vendidos">
+          <h2>Best Sellers</h2>
+          <p>Cada pieza elegida por nuestros clientes cuenta su propia historia de diseño y calidad Jota</p>
+          
+          <div className="carousel-container-productos" id="carousel-container-productos-mas-vendidos">
+            <div className="contenedor-tarjetas">
+              <ListProductos
+                productos={productos.filter(p => p.masVendidos)}
+                mostrarMax={3}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Inspiraciones */}
+        <section className="secc-inspiraciones">
+          <div className="contenedor-inspiraciones">
+            <div className="tarjeta-inspiracion">
+              <img src={inspo1} alt="imagen producto" className="tarjeta-foto" />
+              <p>Piezas que hacen de tus tareas diarias un placer</p>
+            </div>
+            <div className="tarjeta-inspiracion">
+              <img src={inspo2} alt="imagen producto" className="tarjeta-foto" />
+              <p>Muebles que abrazan tu hogar</p>
+            </div>
+            <div className="tarjeta-inspiracion">
+              <img src={inspo3} alt="imagen producto" className="tarjeta-foto" />
+              <p>Diseños que acompañan tu descanso</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Envíos a todo el país */}
+        <div className="envios-cinta">
+          <div className="cinta-contenido">
+            <span> Envíos a todo el país </span>
+            <span> Envíos a todo el país </span>
+            <span> Envíos a todo el país </span>
+            <span> Envíos a todo el país </span>
+          </div>
+          <div className="cinta-contenido">
+            <span>Envíos a todo el país</span>
+            <span>Envíos a todo el país</span>
+            <span>Envíos a todo el país</span>
+            <span>Envíos a todo el país</span>
+          </div>
+        </div>
+
+        {/* Acabados naturales */}
+        <section className="secc-naturales">
+          <h2>Acabados Naturales</h2>
+          <div className="caracteristicas">
+            <div className="contenedor-caracteristicas">
+              <div className="contenedor-img-carac">
+                <img src={aceite} alt="imagen descriptiva" className="img_custom" />
+              </div>
+              <h3>Aceite de lino</h3>
+              <p>100% natural prensado en frío. Ideal para muebles de uso diario.</p>
+            </div>
+            <div className="contenedor-caracteristicas">
+              <div className="contenedor-img-carac">
+                <img src={cera} alt="imagen descriptiva" className="img_custom" />
+              </div>
+              <h3>Cera de abejas</h3>
+              <p>Origen local certificado. Perfecta para terminación premium.</p>
+            </div>
+            <div className="contenedor-caracteristicas">
+              <div className="contenedor-img-carac">
+                <img src={tintes} alt="imagen descriptiva" className="img_custom" />
+              </div>
+              <h3>Tintes vegetales</h3>
+              <p>Base agua con pigmentos naturales. Usado cuando se requiere color.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Ver todo */}
+        <section className="secc-vertodo">
+          <a href="/productos" className="link-ver-todo" id="btnVertodo">
+            <span className="texto-link">VER TODO</span>
+            <span className="icono-flecha">&#10095;</span>
+          </a>
+          <div className="carousel-container-productos" id="carousel-productos-ver-todos">
+            <div className="contenedor-tarjetas">
+              <ListProductos
+                productos={obtenerAleatorios(productos, 3)}
+                mostrarMax={3}
+              />
+            </div>
+            
+          </div>
+        </section>
+        
+        <Carrusel_Principios />
     </main>
   );
 }
