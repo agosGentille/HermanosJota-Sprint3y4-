@@ -1,30 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ModalLogin from './ModalLogin';
-import '../styles/Header.css';
+import ModalRegister from './ModalRegister';
+import '../styles/HeaderFooter.css';
 /*Imports de Imágenes*/
 import logo from '../images/logo.svg';
 import menu from '../images/iconoMenu.png';
 
-import avatar_ardilla from '../images/Avatares/avatar-ardilla.png';
-import avatar_buho from '../images/Avatares/avatar-buho.png';
-import avatar_castor from '../images/Avatares/avatar-castor.png';
-import avatar_mapache from '../images/Avatares/avatar-mapache.png';
-import avatar_pajaro from '../images/Avatares/avatar-pajaro.png';
-
 function Header() {
   const [showLogin, setShowLogin] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [usuario, setUsuario] = useState({ nombre: null, email: null, avatar: null });
+  const [usuario, setUsuario] = useState({ nombre: null, email: null });
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
-  const avatarMap = {
-    castor: avatar_castor,
-    buho: avatar_buho,
-    ardilla: avatar_ardilla,
-    pajaro: avatar_pajaro,
-    mapache: avatar_mapache
-  };
+  const [showRegister, setShowRegister] = useState(false);
 
   // Detectar cambios de tamaño de pantalla
   useEffect(() => {
@@ -37,20 +25,19 @@ function Header() {
   useEffect(() => {
     const nombreGuardado = localStorage.getItem("nombreUsuario");
     if (nombreGuardado){
-      setUsuario({ nombre: nombreGuardado, email: localStorage.getItem("emailUsuario"), avatar: localStorage.getItem("avatarUsuario") });
+      setUsuario({ nombre: nombreGuardado, email: localStorage.getItem("emailUsuario")});
     }
   }, []);
 
-  const handleLogin = ({ nombre, avatar }) => {
-    setUsuario({ nombre, avatar });
+  const handleLogin = ({ nombre }) => {
+    setUsuario({ nombre });
   };
 
   const handleLogout = () => {
     if (window.confirm("¿Desea cerrar sesión?")) {
       localStorage.removeItem("nombreUsuario");
       localStorage.removeItem("emailUsuario");
-      localStorage.removeItem("avatarUsuario");
-      setUsuario({ nombre: null, avatar: null });
+      setUsuario({ nombre: null});
     }
   };
 
@@ -77,19 +64,15 @@ function Header() {
 
       <div className="header-right">
         <span
-          className={`material-symbols-outlined header-usuario ${usuario.nombre && !usuario.avatar ? "logueado" : ""}`}
+          className={`material-symbols-outlined header-usuario ${usuario.nombre ? "logueado" : ""}`}
           onClick={() => (usuario.nombre ? handleLogout() : setShowLogin(true))}
           title={usuario.nombre ? "Cerrar sesión" : "Iniciar sesión"}
         >
-          {usuario.avatar ? (
-            <img src={avatarMap[usuario.avatar]} id="avatarMini" alt="Avatar seleccionado"/>
-          ) : (
-            "account_circle"
-          )}
+          account_circle
         </span>
 
-        <ModalLogin show={showLogin} onClose={() => setShowLogin(false)} onLogin={handleLogin} />
-
+        <ModalLogin show={showLogin} onClose={() => setShowLogin(false)} onLogin={handleLogin} onShowRegister={() => setShowRegister(true)} />
+        <ModalRegister show={showRegister} onClose={() => setShowRegister(false)} onLogin={handleLogin} onShowLogin={() => setShowLogin(true)}/>
         <span className="header-carrito material-symbols-outlined" id="carrito-icono" title="Carrito">
           shopping_bag
         </span>

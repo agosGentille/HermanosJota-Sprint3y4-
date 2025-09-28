@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Header.css';
+import '../styles/HeaderFooter.css';
 /*Imports de Imágenes*/
 import icono_Wsp from '../images/whatsapp.png';
 import icono_Ig from '../images/instagram.png';

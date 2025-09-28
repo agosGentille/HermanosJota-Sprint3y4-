@@ -1,37 +1,54 @@
 import React, { useState, useEffect } from "react";
-import '../styles/Header.css';
-/*Imports de Imágenes*/
-import avatar_ardilla from '../images/Avatares/avatar-ardilla.png';
-import avatar_buho from '../images/Avatares/avatar-buho.png';
-import avatar_castor from '../images/Avatares/avatar-castor.png';
-import avatar_mapache from '../images/Avatares/avatar-mapache.png';
-import avatar_pajaro from '../images/Avatares/avatar-pajaro.png';
+import '../styles/HeaderFooter.css';
 
-function ModalLogin({ show, onClose, onLogin }) {
+function ModalLogin({ show, onClose, onLogin, onShowRegister }) {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // para simular que revisa a la bd
 
   useEffect(() => {
     const nombreGuardado = localStorage.getItem("nombreUsuario");
     const emailGuardado = localStorage.getItem("emailUsuario");
-    const avatarGuardado = localStorage.getItem("avatarUsuario");
 
     if (nombreGuardado) setNombre(nombreGuardado);
     if (emailGuardado) setEmail(emailGuardado);
-    if (avatarGuardado) setAvatar(avatarGuardado);
   }, [show]);
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    localStorage.setItem("nombreUsuario", nombre);
-    localStorage.setItem("emailUsuario", email);
-    if(avatar) localStorage.setItem("avatarUsuario", avatar);
+    setError("");
+    setLoading(true);
 
-    // Notificar al Header que se logueó
-    if (onLogin) onLogin({ nombre, avatar });
+    // Simular retraso
+    setTimeout(async () => {
+      try {
+        const res = await fetch("http://localhost:4000/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, nombre })
+        });
 
-    onClose();
+        setLoading(false);
+
+        if (!res.ok) {
+          const data = await res.json();
+          setError(data.error || "Error al iniciar sesión");
+          return;
+        }
+
+        const data = await res.json();
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("nombreUsuario", data.usuario.nombre);
+        localStorage.setItem("emailUsuario", data.usuario.email);
+        onLogin({ nombre: data.usuario.nombre });
+        onClose();
+      } catch (err) {
+        console.error(err);
+        setError("No se pudo conectar con el servidor");
+        setLoading(false);
+      }
+    }, 1500); // 1.5 segundos de “revisión” de la bd
   };
   
   if (!show) return null; // Si show es false, no renderiza nada
@@ -41,34 +58,26 @@ function ModalLogin({ show, onClose, onLogin }) {
       <div className="modal-content">
         <span className="close" onClick={onClose}>&times;</span>
         <h2>Iniciar Sesión</h2>
+        <p className={`errorLogin ${error ? "active" : ""}`}>
+          * {error}
+        </p>
         <form onSubmit={handleSubmit} className="loginForm">
           <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} placeholder="Nombre" />
           <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
-          
-          <h3>Seleccioná tu Avatar</h3>
-          <div className="avatar-container">
-            <label>
-              <input type="radio" name="avatar" value="castor" className="iconoUsuario"/>
-              <img src={avatar_castor} alt="Castor" />
-            </label>
-            <label>
-              <input type="radio" name="avatar" value="buho" />
-              <img src={avatar_buho} alt="Búho" />
-            </label>
-            <label>
-              <input type="radio" name="avatar" value="ardilla" />
-              <img src={avatar_ardilla} alt="Ardilla" />
-            </label>
-            <label>
-              <input type="radio" name="avatar" value="pajaro" />
-              <img src={avatar_pajaro} alt="Pajaro Carpintero" />
-            </label>
-            <label>
-              <input type="radio" name="avatar" value="mapache" />
-              <img src={avatar_mapache} alt="Mapache" />
-            </label>
-          </div>
           <button type="submit">Iniciar Sesión</button>
+          
+          <p className="registro-texto">
+            ¿Aún no tenés usuario?{" "}
+            <span 
+              className="link-registrate" 
+              onClick={() => {
+                onClose();        // cerramos este modal
+                if (onShowRegister) onShowRegister(); // mostramos modal de registro
+              }}
+            >
+              Registrate!
+            </span>
+          </p>
         </form>
       </div>
     </div>
