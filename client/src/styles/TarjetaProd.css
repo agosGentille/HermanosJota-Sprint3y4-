@@ -1,6 +1,6 @@
 
 .tarjeta-producto {
-  flex: 0 0 420px; /*Ancho fijo para c/tarjeta*/
+  flex: 0 0 360px; /*Ancho fijo para c/tarjeta*/
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

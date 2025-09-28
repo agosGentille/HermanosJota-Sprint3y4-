@@ -19,13 +19,32 @@ function Home() {
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
-    // Reemplazá la URL con tu endpoint real
-    fetch('http://localhost:4000/data/catalogo')
+    fetch('http://localhost:4000/api/productos') 
       .then(res => res.json())
-      .then(data => setProductos(data))
-      .catch(err => console.error('Error al cargar productos:', err));
+      .then(data => {
+      // Modificamos la propiedad 'imagen' para que tenga la URL completa
+      const productosConUrl = data.map(p => ({
+        ...p,
+        imagen: `http://localhost:4000${p.imagen}`
+      }));
+      setProductos(productosConUrl);
+    })
+      .catch(err => console.error(err));
   }, []);
+  console.log("Productos en render:", productos);
 
+  function obtenerAleatorios(array, n) {
+    const copia = [...array];
+    const resultado = [];
+    for (let i = 0; i < n; i++) {
+      if (copia.length === 0) break; // por si hay menos de n elementos
+      const indice = Math.floor(Math.random() * copia.length);
+      resultado.push(copia[indice]);
+      copia.splice(indice, 1); // removemos para no repetir
+    }
+    return resultado;
+  }
+    
   return (
     <main>
        <Carrusel_Home />
@@ -113,10 +132,13 @@ function Home() {
             <span className="icono-flecha">&#10095;</span>
           </a>
           <div className="carousel-container-productos" id="carousel-productos-ver-todos">
-            <ListProductos
-                productos={productos}
+            <div className="contenedor-tarjetas">
+              <ListProductos
+                productos={obtenerAleatorios(productos, 3)}
                 mostrarMax={3}
               />
+            </div>
+            
           </div>
         </section>
         

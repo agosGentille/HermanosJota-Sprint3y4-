@@ -2,7 +2,7 @@ const productos = [
   {
     id: "Aparador-Uspallata",
     titulo: "Aparador Uspallata",
-    imagen: "Images/Catalogo/Aparador-Uspallata.png",
+    imagen: "/images/Catalogo/Aparador-Uspallata.png",
     descripcion: "Aparador de seis puertas fabricado en nogal sostenible con tiradores metálicos en acabado latón. Su silueta minimalista realza el veteado natural de la madera, creando una pieza que combina funcionalidad y elegancia atemporal para espacios contemporáneos.",
     Precio: 1000,
     medidas: "180 × 45 × 75 cm",
@@ -31,7 +31,7 @@ const productos = [
   {
     id: "Biblioteca-Recoleta",
     titulo: "Biblioteca Recoleta",
-    imagen: "Images/Catalogo/Biblioteca-Recoleta.png",
+    imagen: "/images/Catalogo/Biblioteca-Recoleta.png",
     descripcion: "Sistema modular de estantes abierto que combina estructura de acero Sage Green y repisas en roble claro. Perfecta para colecciones y objetos de diseño, su diseño versátil se adapta a cualquier espacio contemporáneo con elegancia funcional.",
     Precio: 1000,
     medidas: "100 × 35 × 200 cm",
@@ -60,7 +60,7 @@ const productos = [
   {
     id: "Butaca-Mendoza",
     titulo: "Butaca Mendoza",
-    imagen: "Images/Catalogo/Butaca-Mendoza.png",
+    imagen: "/images/Catalogo/Butaca-Mendoza.png",
     descripcion: "Butaca tapizada en bouclé Dusty Rose con base de madera de guatambú. El respaldo curvo abraza el cuerpo y ofrece máximo confort, mientras que su diseño orgánico aporta calidez y sofisticación a cualquier ambiente contemporáneo.",
     Precio: 1000,
     medidas: "80 × 75 × 85 cm",
@@ -89,7 +89,7 @@ const productos = [
   {
     id: "Escritorio-Costa",
     titulo: "Escritorio Costa",
-    imagen: "Images/Catalogo/Escritorio-Costa.png",
+    imagen: "/images/Catalogo/Escritorio-Costa.png",
     descripcion: "Escritorio compacto con cajón organizado y tapa pasacables integrada en bambú laminado. Ideal para espacios de trabajo en casa, combina funcionalidad moderna con estética minimalista y sostenible, perfecto para el trabajo remoto.",
     Precio: 1000,
     medidas: "120 × 60 × 75 cm",
@@ -118,7 +118,7 @@ const productos = [
   {
     id: "Mesa-Comedor-Pampa",
     titulo: "Mesa Comedor Pampa",
-    imagen: "Images/Catalogo/Mesa-Comedor-Pampa.png",
+    imagen: "/images/Catalogo/Mesa-Comedor-Pampa.png",
     descripcion: "Mesa extensible de roble macizo con tablero biselado y sistema de apertura suave. Su diseño robusto y elegante se adapta perfectamente a reuniones íntimas o grandes celebraciones familiares, extendiéndose de 6 a 10 comensales.",
     Precio: 1000,
     medidas: "160-240 × 90 × 75 cm",
@@ -147,7 +147,7 @@ const productos = [
   {
     id: "Mesa-de-Centro-Araucaria",
     titulo: "Mesa de Centro Araucaria",
-    imagen: "Images/Catalogo/Mesa-de-Centro-Araucaria.png",
+    imagen: "/images/Catalogo/Mesa-de-Centro-Araucaria.png",
     descripcion: "Mesa de centro con sobre circular de mármol Patagonia y base de tres patas en madera de nogal. Su diseño minimalista se convierte en el punto focal perfecto para cualquier sala de estar contemporánea, combinando la frialdad del mármol con la calidez de la madera.",
     Precio: 1000,
     medidas: "90 × 90 × 45 cm",
@@ -176,7 +176,7 @@ const productos = [
   {
     id: "Mesa-de-Noche-Aconcagua",
     titulo: "Mesa de Noche Aconcagua",
-    imagen: "Images/Catalogo/Mesa-de-Noche-Aconcagua.png",
+    imagen: "/images/Catalogo/Mesa-de-Noche-Aconcagua.png",
     descripcion: "Mesa de noche con cajón oculto y repisa inferior en roble certificado FSC®. Su diseño limpio y funcional permite convivir con diferentes estilos de dormitorio, ofreciendo almacenamiento discreto y elegante para objetos personales.",
     Precio: 1000,
     medidas: "45 × 35 × 60 cm",
@@ -205,7 +205,7 @@ const productos = [
   {
     id: "Silla-de-Trabajo-Belgrano",
     titulo: "Silla de Trabajo Belgrano",
-    imagen: "Images/Catalogo/Silla-de-Trabajo-Belgrano.png",
+    imagen: "/images/Catalogo/Silla-de-Trabajo-Belgrano.png",
     descripcion: "Silla ergonómica regulable en altura con respaldo de malla transpirable y asiento tapizado en tejido reciclado. Diseñada para largas jornadas de trabajo con máximo confort y apoyo lumbar, ideal para oficinas en casa y espacios de coworking.",
     Precio: 1000,
     medidas: "60 × 60 × 90-100 cm",
@@ -234,7 +234,7 @@ const productos = [
   {
     id: "Sillas-Córdoba",
     titulo: "Sillas Córdoba",
-    imagen: "Images/Catalogo/Sillas-Córdoba.png",
+    imagen: "/images/Catalogo/Sillas-Córdoba.png",
     descripcion: "Set de cuatro sillas apilables en contrachapado moldeado de nogal y estructura tubular pintada en Sage Green. Su diseño ergonómico y materiales de calidad garantizan comodidad y durabilidad en el uso diario, perfectas para comedores contemporáneos.",
     Precio: 1000,
     medidas: "45 × 52 × 80 cm (cada una)",
@@ -263,7 +263,7 @@ const productos = [
   {
     id: "Sillón-Copacabana",
     titulo: "Sillón Copacabana",
-    imagen: "Images/Catalogo/Sillón-Copacabana.png",
+    imagen: "/images/Catalogo/Sillón-Copacabana.png",
     descripcion: "Sillón lounge en cuero cognac con base giratoria en acero Burnt Sienna. Inspirado en la estética brasilera moderna de los 60, combina comodidad excepcional con un diseño icónico que trasciende tendencias y épocas.",
     Precio: 1000,
     medidas: "90 × 85 × 95 cm",
@@ -292,7 +292,7 @@ const productos = [
   {
     id: "Sofá-Patagonia",
     titulo: "Sofá Patagonia",
-    imagen: "Images/Catalogo/Sofá-Patagonia.png",
+    imagen: "/images/Catalogo/Sofá-Patagonia.png",
     descripcion: "Sofá de tres cuerpos tapizado en lino Warm Alabaster con patas cónicas de madera. Los cojines combinan espuma de alta resiliencia con plumón reciclado, ofreciendo comodidad duradera y sostenible para el hogar moderno.",
     Precio: 1000,
     medidas: "220 × 90 × 80 cm",
@@ -321,7 +321,7 @@ const productos = [
   {
     id: "Cama-Neuquen",
     titulo: "Cama Neuquén",
-    imagen: "Images/Catalogo/Cama-Neuquén.png",
+    imagen: "//images/Catalogo/Cama-Neuquén.png",
     descripcion: "Cama plataforma con cabecero flotante tapizado en lino natural y estructura de madera maciza. Su diseño minimalista y sofisticado crea un ambiente de serenidad y elegancia, perfecto para dormitorios contemporáneos que buscan paz y simplicidad.",
     Precio: 1000,
     medidas: "160 × 200 × 90 cm",
@@ -348,3 +348,5 @@ const productos = [
     masVendidos: false
   }
 ];
+
+module.exports = { productos };
