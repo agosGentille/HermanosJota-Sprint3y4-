@@ -72,7 +72,7 @@ El sitio incluye:
 ```
 ---
 
-## Cómo instalar las Dependencias Utilizadas
+## Cómo instalar las Dependencias Utilizadas e Iniciar el Servidor
 
 ### Para el Backend
 ```
