@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const PORT = 4000;
+
 const cors = require("cors");
 app.use(cors()); // permite leer JSON en req.body
 app.use(express.json()); //parsea JSON para que no llegue undefined 
