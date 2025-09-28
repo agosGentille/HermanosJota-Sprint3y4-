@@ -365,9 +365,9 @@ footer {
 }
 
 .close {
-    align-self: flex-end;
-    font-size: 1.5rem;
-    cursor: pointer;
+  align-self: flex-end;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .loginForm{
@@ -381,64 +381,51 @@ footer {
   transition: color 0.3s ease;
 }
 
-.iconoUsuario:hover, .header-usuario.logueado:hover{
+.header-usuario:hover, .header-usuario.logueado:hover{
   color: rgba(212, 164, 55, 0.5); 
+  cursor: pointer;
 }
 
 .header-usuario.logueado {
   color: #87A96B; 
 }
 
-
-/*Avatares*/
-.avatar-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
-  gap: 15px;
-  justify-items: center;
-  margin: 15px 0;
-  align-items: center;
+.errorLogin{
+  margin-top: 10px;
+  background-color: brown;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  width:fit-content;
+  font-size: 16px;
+  text-align: right;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  min-height: 1.2em;
 }
-.avatar-container label{
+
+.errorLogin.active {
+  opacity: 1;                
+}
+
+.registro-texto{
+  font-size: 14px;
+  color: #333;
+}
+
+.link-registrate{
+  color: #c47a6d;
+  font-weight: 600;
+}
+
+.botones-cerrar-volver {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
-.avatar-container input[type="radio"] {
-  display: none; /* ocultamos el input */
-}
 
-.avatar-container img {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+.volver {
   cursor: pointer;
-  border: 3px solid transparent;
-  transition: border 0.3s, transform 0.2s;
-}
-
-.avatar-container input[type="radio"]:checked + img {
-  border: 3px solid #A0522D; 
-  transform: scale(1.05);
-}
-
-.avatar-container label:nth-child(4),
-.avatar-container label:nth-child(5) {
-  grid-column: span 1;
-}
-.avatar-container {
-  grid-template-rows: auto auto; 
-}
-.avatar-container label:nth-child(4) {
-  grid-column: 2; 
-}
-.avatar-container label:nth-child(5) {
-  grid-column: 3; 
-}
-.iconoUsuario img.avatar-icono {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  border: 2px solid #87A96B; 
-  object-fit: cover;
+  font-size: 1.5rem;
+  color: #333;
 }
