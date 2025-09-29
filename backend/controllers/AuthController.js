@@ -13,7 +13,7 @@ exports.login = (req, res) => {
     return res.status(401).json({ error: "Credenciales inválidas" });
   }
 
-  // Token falso temporal (en el futuro podemos usar alguno real JWT)
+  // Token falso temporal (en el futuro podemos usar alguno real, JWT x ej, q expire cada cierto tiempo)
   const token = "fake-token-" + usuario.id;
 
   res.json({
@@ -25,14 +25,14 @@ exports.login = (req, res) => {
   });
 };
 
-// REGISTRO TEMPORAL - Los usuarios registrados existen en el servidor mientras este este
+// REGISTRO TEMPORAL - Los usuarios registrados existen en el servidor mientras este
 //corriendo. Si se reinicia NODE, se pierde todo.
 exports.register = (req, res) => {
   const { nombre, email } = req.body;
 
   if (!nombre || !email) return res.status(400).json({ error: "Faltan datos" });
 
-  // Chequea si ya existe
+  // Chequea si el usuario ya existe (email ya registrado)
   const existe = usuarios.some(u => u.email === email);
   if (existe) return res.status(400).json({ error: "El usuario ya existe" });
 

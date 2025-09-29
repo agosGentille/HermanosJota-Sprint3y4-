@@ -72,12 +72,13 @@
 }
 .numerito {
   position: absolute;
-  bottom: 25px;    
+  bottom: 30px;    
   right: 55px;
-  bottom: -4px;    
-  right: -4px;
   font-size: 0.8rem;
   padding: 0.15rem 0.35rem;
+  background-color: #D4A437;
+  color: white;
+  border-radius: 50px;
 }
 
 .header-menu {
@@ -374,12 +375,12 @@ footer {
   gap: 10px;
 }
 
-.iconoUsuario {
+.iconoUsuario , .header-carrito {
   color: #333; 
   transition: color 0.3s ease;
 }
 
-.header-usuario:hover, .header-usuario.logueado:hover{
+.header-usuario:hover, .header-usuario.logueado:hover, .header-carrito:hover{
   color: rgba(212, 164, 55, 0.5); 
   cursor: pointer;
 }
