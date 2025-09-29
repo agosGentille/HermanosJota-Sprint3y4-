@@ -32,9 +32,8 @@ El sitio incluye:
 - **Inicio de Sesión:** El sistema cuenta con un modal de login que permite a los usuarios ingresar con sus credenciales. Una vez autenticados correctamente:
     - Se genera un token temporal (actualmente tokens falsos a modo de prueba).
     - Dicho token se guarda en localStorage del navegador.
-    - La interfaz de usuario (UI) se actualiza dinámicamente sin necesidad de recargar la página.
     - El token se envía en cada request para validar el acceso a las rutas protegidas.
-    - ⚠️ En esta versión de prueba los tokens no son reales (se usan prefijos como fake-token-), pero el flujo está preparado para, si se quiere, migrar a JWT en el futuro.
+⚠️ En esta versión de prueba los tokens no son reales (se usan prefijos como fake-token-), pero el flujo está preparado para, si se quiere, migrar por ejemplo a JWT en el futuro.
 - **Registro de Usuarios:** El sistema cuenta con un modal de registro que permite crear nuevos usuarios. Los datos de registro se guardan temporalmente en un array en el servidor. IMPORTANTE: Estos usuarios estarán disponibles mientras Node.js se encuentre en ejecución. Si el servidor se reinicia, los datos se pierden (no hay persistencia en base de datos por el momento).
 
 ---
