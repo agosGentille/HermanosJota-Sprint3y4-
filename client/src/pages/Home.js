@@ -17,19 +17,28 @@ import ListProductos from '../components/TarjetasProductos';
 
 function Home() {
   const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/productos') 
-      .then(res => res.json())
-      .then(data => {
-      // Modificamos la propiedad 'imagen' para que tenga la URL completa
+    fetch('http://localhost:4000/api/productos')
+    .then(res => {
+      if (!res.ok) throw new Error("Error al cargar los productos");
+      return res.json();
+    })
+    .then(data => {
       const productosConUrl = data.map(p => ({
         ...p,
         imagen: `http://localhost:4000${p.imagen}`
       }));
       setProductos(productosConUrl);
+      setLoading(false);
     })
-      .catch(err => console.error(err));
+    .catch(err => {
+      console.error(err);
+      setError(err.message || "Error al cargar los productos");
+      setLoading(false);
+    });
   }, []);
   console.log("Productos en render:", productos);
 
@@ -37,10 +46,10 @@ function Home() {
     const copia = [...array];
     const resultado = [];
     for (let i = 0; i < n; i++) {
-      if (copia.length === 0) break; // por si hay menos de n elementos
+      if (copia.length === 0) break; 
       const indice = Math.floor(Math.random() * copia.length);
       resultado.push(copia[indice]);
-      copia.splice(indice, 1); // removemos para no repetir
+      copia.splice(indice, 1); 
     }
     return resultado;
   }
@@ -55,10 +64,14 @@ function Home() {
           
           <div className="carousel-container-productos" id="carousel-container-productos-mas-vendidos">
             <div className="contenedor-tarjetas">
-              <ListProductos
-                productos={productos.filter(p => p.masVendidos)}
-                mostrarMax={3}
-              />
+              {loading && <p>Cargando...</p>}
+              {error && <p>{error}</p>}
+              {!loading && !error && (
+                <ListProductos
+                  productos={productos.filter(p => p.masVendidos)}
+                  mostrarMax={3}
+                />
+              )}
             </div>
           </div>
         </section>
@@ -133,10 +146,14 @@ function Home() {
           </a>
           <div className="carousel-container-productos" id="carousel-productos-ver-todos">
             <div className="contenedor-tarjetas">
-              <ListProductos
-                productos={obtenerAleatorios(productos, 3)}
-                mostrarMax={3}
-              />
+              {loading && <p>Cargando...</p>}
+              {error && <p>{error}</p>}
+              {!loading && !error && (
+                <ListProductos
+                  productos={obtenerAleatorios(productos, 3)}
+                  mostrarMax={3}
+                />
+              )}
             </div>
             
           </div>
