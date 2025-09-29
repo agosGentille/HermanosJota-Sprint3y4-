@@ -1,9 +1,9 @@
 const usuarios = [
-  { id: 1, nombre: "Agostina", email: "agostina@gmail.com"},
-  { id: 2, nombre: "Juanma", email: "juanma@gmail.com"},
-  { id: 3, nombre: "Jazmin", email: "jazmin@gmail.com"},
-  { id: 4, nombre: "Agustin", email: "agustin@gmail.com"},
-  { id: 5, nombre: "Mariano", email: "mariano@gmail.com"}
+  { id: 1, nombre: "Agostina Abril Gentille", email: "agostina@gmail.com", password: "Admin1"},
+  { id: 2, nombre: "Juan Manuel Vila", email: "juanma@gmail.com", password: "Admin2"},
+  { id: 3, nombre: "Jazmin Maia Fabrizio", email: "jazmin@gmail.com", password: "Admin3"},
+  { id: 4, nombre: "Agustin José Giménez", email: "agustin@gmail.com", password: "Admin4"},
+  { id: 5, nombre: "Mariano Gastón Insaurralnde", email: "mariano@gmail.com", password: "Admin5"}
 ];
 
 module.exports = usuarios;

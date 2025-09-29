@@ -4,13 +4,19 @@ import '../styles/HeaderFooter.css';
 function ModalRegister({ show, onClose, onLogin, onShowLogin}) {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword1, setShowPassword1] = useState(false); 
+  const [showPassword2, setShowPassword2] = useState(false);
 
   useEffect(() => {
     if (show) {
       setNombre("");
       setEmail("");
+      setPassword("");
+      setPassword2("");
       setError("");
     }
   }, [show]);
@@ -22,12 +28,17 @@ function ModalRegister({ show, onClose, onLogin, onShowLogin}) {
     setError("");
     setLoading(true);
 
+    if (password !== password2) {
+      setError("Las contraseñas no coinciden");
+      return;
+    }
+
     setTimeout(async () => {
       try {
         const res = await fetch("http://localhost:4000/api/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ nombre, email })
+          body: JSON.stringify({ nombre, email, password })
         });
 
         setLoading(false);
@@ -70,9 +81,41 @@ function ModalRegister({ show, onClose, onLogin, onShowLogin}) {
         <h2>Registro</h2>
         <p className={`errorLogin ${error ? "active" : ""}`}>* {error}</p>
         <form onSubmit={handleSubmit} className="loginForm">
-          <input type="text" placeholder="Nombre" value={nombre} onChange={e => setNombre(e.target.value)} />
+          <input type="text" placeholder="Nombre Completo" value={nombre} onChange={e => setNombre(e.target.value)} />
           <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-          <button type="submit">{loading ? "Registrando..." : "Registrarse"}</button>
+          <div className="password">
+            <input
+              type={showPassword1 ? "text" : "password"}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="Contraseña"
+              required
+            />
+            <span
+              className="material-symbols-outlined password-toggle"
+              onClick={() => setShowPassword1(!showPassword1)}
+            >
+              {showPassword1 ? "visibility_off" : "visibility"}
+            </span>
+          </div>
+
+          <div className="repetir-password">
+            <input
+              type={showPassword2 ? "text" : "password"}
+              value={password2}
+              onChange={e => setPassword2(e.target.value)}
+              placeholder="Repetir Contraseña"
+              required
+            />
+            <span
+              className="material-symbols-outlined password-toggle"
+              onClick={() => setShowPassword2(!showPassword2)}
+            >
+              {showPassword2 ? "visibility_off" : "visibility"}
+            </span>
+          </div>
+          
+          <button type="submit" className="button-submit">{loading ? "Registrando..." : "Registrarse"}</button>
         </form>
       </div>
     </div>

@@ -63,6 +63,8 @@ function Header() {
       </nav>
 
       <div className="header-right">
+        {/*en OnClick Si existe un nombre (esta logueado) damos la op de cerrar 
+        sesion, sino la op de loguearse con el form de Login*/}
         <span
           className={`material-symbols-outlined header-usuario ${usuario.nombre ? "logueado" : ""}`}
           onClick={() => (usuario.nombre ? handleLogout() : setShowLogin(true))}

@@ -4,8 +4,10 @@ import '../styles/HeaderFooter.css';
 function ModalLogin({ show, onClose, onLogin, onShowRegister }) {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false); // para simular que revisa a la bd
+  const [showPassword1, setShowPassword1] = useState(false); 
 
   useEffect(() => {
     const nombreGuardado = localStorage.getItem("nombreUsuario");
@@ -26,7 +28,7 @@ function ModalLogin({ show, onClose, onLogin, onShowRegister }) {
         const res = await fetch("http://localhost:4000/api/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, nombre })
+          body: JSON.stringify({ email, password })
         });
 
         setLoading(false);
@@ -62,9 +64,17 @@ function ModalLogin({ show, onClose, onLogin, onShowRegister }) {
           * {error}
         </p>
         <form onSubmit={handleSubmit} className="loginForm">
-          <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} placeholder="Nombre" />
           <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
-          <button type="submit">Iniciar Sesión</button>
+          <div className="password">
+            <input type={showPassword1 ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} placeholder="Contraseña" required />
+            <span
+              className="material-symbols-outlined password-toggle"
+              onClick={() => setShowPassword1(!showPassword1)}
+            >
+              {showPassword1 ? "visibility_off" : "visibility"}
+            </span>
+          </div>
+          <button type="submit" className="button-submit">Iniciar Sesión</button>
           
           <p className="registro-texto">
             ¿Aún no tenés usuario?{" "}

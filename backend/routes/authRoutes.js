@@ -1,4 +1,4 @@
-//ruta del login
+//rutas para los modales de inicio de sesion y registro
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/AuthController");
