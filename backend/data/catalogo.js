@@ -319,9 +319,9 @@ const productos = [
     masVendidos: false
   },
   {
-    id: "Cama-Neuquen",
+    id: "Cama-Neuquén",
     titulo: "Cama Neuquén",
-    imagen: "//images/Catalogo/Cama-Neuquén.png",
+    imagen: "/images/Catalogo/Cama-Neuquén.png",
     descripcion: "Cama plataforma con cabecero flotante tapizado en lino natural y estructura de madera maciza. Su diseño minimalista y sofisticado crea un ambiente de serenidad y elegancia, perfecto para dormitorios contemporáneos que buscan paz y simplicidad.",
     Precio: 1000,
     medidas: "160 × 200 × 90 cm",

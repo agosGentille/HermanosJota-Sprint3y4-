@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import '../styles/HeaderFooter.css';
+import { validarEmail } from "../utils/validarEmail";
 
 function ModalRegister({ show, onClose, onLogin, onShowLogin}) {
   const [nombre, setNombre] = useState("");
@@ -27,6 +28,13 @@ function ModalRegister({ show, onClose, onLogin, onShowLogin}) {
     e.preventDefault();
     setError("");
     setLoading(true);
+
+    const { valido, error: errorEmail } = validarEmail(email);
+    if (!valido) {
+      setError(errorEmail);
+      setLoading(false);
+      return;
+    }
 
     if (password !== password2) {
       setError("Las contraseñas no coinciden");
@@ -81,8 +89,8 @@ function ModalRegister({ show, onClose, onLogin, onShowLogin}) {
         <h2>Registro</h2>
         <p className={`errorLogin ${error ? "active" : ""}`}>* {error}</p>
         <form onSubmit={handleSubmit} className="loginForm">
-          <input type="text" placeholder="Nombre Completo" value={nombre} onChange={e => setNombre(e.target.value)} />
-          <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+          <input type="text" required placeholder="Nombre Completo" value={nombre} onChange={e => setNombre(e.target.value)} />
+          <input type="email" required placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
           <div className="password">
             <input
               type={showPassword1 ? "text" : "password"}
