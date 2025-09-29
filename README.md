@@ -58,6 +58,7 @@ El sitio incluye:
 |-- controllers/
 |-- data/
 |-- middlewares/
+|-- public/images/catalogo
 
 /client
 |-- src/ 
