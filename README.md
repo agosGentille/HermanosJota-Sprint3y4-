@@ -29,7 +29,12 @@ El sitio incluye:
 - **Vista de Detalle de Producto:** renderizado condicional al seleccionar un producto del catálogo.
 - **Carrito de Compras:** estado global en React, contador de ítems en el navbar y posibilidad de agregar productos desde la vista de detalle.
 - **Formulario de Contacto:** formulario controlado con React que valida y registra la información en la consola al enviar.
-- **Inicio de Sesión:** modal de login que permite seleccionar avatar, guardar datos en localStorage y actualizar la UI sin recargar la página.
+- **Inicio de Sesión:** El sistema cuenta con un modal de login que permite a los usuarios ingresar con sus credenciales. Una vez autenticados correctamente:
+    - Se genera un token temporal (actualmente tokens falsos a modo de prueba).
+    - Dicho token se guarda en localStorage del navegador.
+    - El token se envía en cada request para validar el acceso a las rutas protegidas.
+    - ⚠️ En esta versión de prueba los tokens no son reales (se usan prefijos como fake-token-), pero el flujo está preparado para, si se quiere, migrar por ejemplo a JWT en el futuro.
+- **Registro de Usuarios:** El sistema cuenta con un modal de registro que permite crear nuevos usuarios. Los datos de registro se guardan temporalmente en un array en el servidor. **IMPORTANTE:** ⚠️ Estos usuarios estarán disponibles mientras Node.js se encuentre en ejecución. Si el servidor se reinicia, los datos se pierden (no hay persistencia en base de datos por el momento).
 
 ---
 
@@ -58,6 +63,7 @@ El sitio incluye:
 |-- controllers/
 |-- data/
 |-- middlewares/
+|-- public/images/catalogo
 
 /client
 |-- src/ 
