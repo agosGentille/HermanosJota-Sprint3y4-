@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 .tarjeta-producto {
-  background-color: #c47a6d;
+  background-color: #a0522d;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 25px 0 0 0;
@@ -74,7 +74,7 @@
 
 .tarjeta-producto h3 {
   font-family: "Playfair Display", sans-serif;
-  color: #c47a6d;
+  color: #a0522d;
   margin-top: 10px;
   margin-bottom: 20px; /* separo del resto */
   text-align: center;
