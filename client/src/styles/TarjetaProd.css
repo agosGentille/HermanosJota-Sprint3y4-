@@ -2,7 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 .tarjeta-producto {
-  flex: 0 0 360px; /*Ancho fijo para c/tarjeta*/
+  display: flex;
+  flex-direction: column; /*Ancho fijo para c/tarjeta*/
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -13,8 +14,8 @@
   scroll-snap-align: start;
   opacity: 0;
   transform: translateX(50px);
-
-  margin-top: 10px;
+  gap: 10px;
+  min-width: 360px;
 }
 
 .tarjeta-producto.mostrar {
@@ -28,11 +29,36 @@
 }
 
 .tarjeta-foto {
+  position: relative;
   width: 100%;
   border-radius: 8px;
-  margin-bottom: 15px;
-  background-color: rgb(245, 230, 211, 0.4);
+  overflow: hidden;
 }
+
+.tarjeta-foto img {
+  width: 100%;
+  display: block;
+  transition: opacity 0.4s ease;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  /*background-color: rgb(245, 230, 211, 0.4);*/
+}
+
+.tarjeta-foto .img-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.tarjeta-producto:hover .tarjeta-foto .img-normal {
+  opacity: 0;
+}
+
+.tarjeta-producto:hover .tarjeta-foto .img-hover {
+  opacity: 1;
+}
+
 
 .tarjeta-producto a{
   text-decoration: none !important ;

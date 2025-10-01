@@ -177,17 +177,14 @@ body {
 }
 
 .contenedor-tarjetas {
-  overflow-x: auto;
-  -ms-overflow-style: none;  
-  scrollbar-width: none;     
-}
-
-.contenedor-tarjetas{
   display: flex;
   transition: transform 0.4s ease-in-out;
   overflow-x: auto;
   scroll-snap-type: x mandatory; /* Snap al final de cada tarjeta */
   -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+  margin-bottom: 20px;   
 }
 
 .contenedor-tarjetas::-webkit-scrollbar {
