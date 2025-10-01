@@ -18,11 +18,17 @@ function TarjetasProductos({ productos, mostrarMax}) {
   return (
     <>
       {lista.map((producto) => (
-          <a key={producto.id} href={`producto.html?id=${producto.id}`} className={`tarjeta-producto ${mostrar ? 'mostrar' : ''}`}>
-              <img src={producto.imagen} alt={producto.titulo} className="tarjeta-foto" />
-              <h3>{producto.titulo}</h3>
-              <p>${producto.Precio}</p>
-          </a>
+          <div className={`tarjeta-producto ${mostrar ? 'mostrar' : ''}`}>
+              <a key={producto.id} href={`producto.html?id=${producto.id}`} >
+                <img src={producto.imagen} alt={producto.titulo} className="tarjeta-foto" />
+                <h3>{producto.titulo}</h3>
+                <p>${producto.Precio}</p>
+              </a>
+             <div className="btnAgregarCarrito">
+                <span className="material-symbols-outlined">shopping_bag</span>
+                <span> | AGREGAR AL CARRITO</span>
+              </div> 
+          </div>
           ))}
     </>
   );
