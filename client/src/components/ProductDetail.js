@@ -27,36 +27,43 @@ export default function ProductDetail({ onAddToCart }) {
   if (!producto) return null;
 
   return (
-    <div className="detalle_producto">
-      <button onClick={() => navigate(-1)}>← Volver al catálogo</button>
-      <img src={`http://localhost:4000${producto.imagen}`} alt={producto.titulo} />
-      <h2>{producto.titulo}</h2>
-      <p>{producto.descripcion}</p>
-      <p className="precio">${producto.Precio ?? "Consultar"}.-</p>
-      
-      <div className="detalle_info">
-        {producto.medidas && <p><strong>Medidas:</strong> {producto.medidas}</p>}
-        {producto.materiales && <p><strong>Materiales:</strong> {producto.materiales}</p>}
-        {producto.acabado && <p><strong>Acabado:</strong> {producto.acabado}</p>}
-        {producto.peso && <p><strong>Peso:</strong> {producto.peso}</p>}
-        {producto.capacidad && <p><strong>Capacidad:</strong> {producto.capacidad}</p>}
-        {producto.tapizado && <p><strong>Tapizado:</strong> {producto.tapizado}</p>}
-        {producto.confort && <p><strong>Confort:</strong> {producto.confort}</p>}
-        {producto.almacenamiento && <p><strong>Almacenamiento:</strong> {producto.almacenamiento}</p>}
-        {producto.cables && <p><strong>Cables:</strong> {producto.cables}</p>}
-        {producto.extension && <p><strong>Extensión:</strong> {producto.extension}</p>}
-        {producto.carga_max && <p><strong>Carga máxima:</strong> {producto.carga_max}</p>}
-        {producto.caracteristicas && <p><strong>Características:</strong> {producto.caracteristicas}</p>}
-        {producto.regulacion && <p><strong>Regulación:</strong> {producto.regulacion}</p>}
-        {producto.certificacion && <p><strong>Certificación:</strong> {producto.certificacion}</p>}
-        {producto.apilables && <p><strong>Apilables:</strong> {producto.apilables}</p>}
-        {producto.rotacion && <p><strong>Rotación:</strong> {producto.rotacion}</p>}
-        {producto.garantia && <p><strong>Garantía:</strong> {producto.garantia}</p>}
-        {producto.estructura && <p><strong>Estructura:</strong> {producto.estructura}</p>}
-        {producto.sostenibilidad && <p><strong>Sostenibilidad:</strong> {producto.sostenibilidad}</p>}
-        {producto.colchon && <p><strong>Colchón:</strong> {producto.colchon}</p>}
+      <div>
+        <div className="detalle_producto">
+          <img src={`http://localhost:4000${producto.imagen}`} alt={producto.titulo} />
+          <div className="detalle_contenido">
+            <h2>{producto.titulo}</h2>
+            <p className="precio">${producto.Precio ?? "Consultar"}.-</p>
+            <p>{producto.descripcion}</p>
+
+            <div className="detalle_info">
+              {producto.medidas && <p><strong>Medidas:</strong> {producto.medidas}</p>}
+              {producto.materiales && <p><strong>Materiales:</strong> {producto.materiales}</p>}
+              {producto.acabado && <p><strong>Acabado:</strong> {producto.acabado}</p>}
+              {producto.peso && <p><strong>Peso:</strong> {producto.peso}</p>}
+              {producto.capacidad && <p><strong>Capacidad:</strong> {producto.capacidad}</p>}
+              {producto.tapizado && <p><strong>Tapizado:</strong> {producto.tapizado}</p>}
+              {producto.confort && <p><strong>Confort:</strong> {producto.confort}</p>}
+              {producto.almacenamiento && <p><strong>Almacenamiento:</strong> {producto.almacenamiento}</p>}
+              {producto.cables && <p><strong>Cables:</strong> {producto.cables}</p>}
+              {producto.extension && <p><strong>Extensión:</strong> {producto.extension}</p>}
+              {producto.carga_max && <p><strong>Carga máxima:</strong> {producto.carga_max}</p>}
+              {producto.caracteristicas && <p><strong>Características:</strong> {producto.caracteristicas}</p>}
+              {producto.regulacion && <p><strong>Regulación:</strong> {producto.regulacion}</p>}
+              {producto.certificacion && <p><strong>Certificación:</strong> {producto.certificacion}</p>}
+              {producto.apilables && <p><strong>Apilables:</strong> {producto.apilables}</p>}
+              {producto.rotacion && <p><strong>Rotación:</strong> {producto.rotacion}</p>}
+              {producto.garantia && <p><strong>Garantía:</strong> {producto.garantia}</p>}
+              {producto.estructura && <p><strong>Estructura:</strong> {producto.estructura}</p>}
+              {producto.sostenibilidad && <p><strong>Sostenibilidad:</strong> {producto.sostenibilidad}</p>}
+              {producto.colchon && <p><strong>Colchón:</strong> {producto.colchon}</p>}
+            </div>
+
+            <button className="btn-agregarcarrito" onClick={() => onAddToCart(producto)}>
+              Añadir al carrito
+            </button>
+          </div>
+        </div>
       </div>
-      <button onClick={() => onAddToCart(producto)}>Añadir al carrito</button>
-    </div>
-  );
+    );
+
 }
