@@ -41,7 +41,8 @@ main {
   display: block;
   position: relative;
   z-index: 1;
-  margin-top: clamp(8rem, 15vh, 12rem);
+  /* temporal */
+  margin-top: 4vh;
   padding: 1rem;
 }
 

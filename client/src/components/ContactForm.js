@@ -1,23 +1,10 @@
 import React, { useState } from "react";
 
 // para el estado inicial se puede tomar los datos del localStorage
-// lo que esta abajo es lo que estaba del sprint anterior
-// function autorellenarFormulario() {
-//   const nombre = localStorage.getItem("nombreUsuario");
-//   const email = localStorage.getItem("emailUsuario");
-
-//   if (nombre) {
-//     document.getElementById("nombre").value = nombre;
-//   }
-//   if (email) {
-//     document.getElementById("email").value = email;
-//   }
-// }
-// document.addEventListener("DOMContentLoaded", autorellenarFormulario);
 
 const initialState = {
-  nombre: "",
-  email: "",
+  nombre: localStorage.getItem("nombreUsuario") || "",
+  email: localStorage.getItem("emailUsuario") || "",
   mensaje: "",
 };
 

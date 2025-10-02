@@ -5,9 +5,131 @@ import ContactForm from "../components/ContactForm";
 function App() {
   return (
     <div>
-      {/* otros componentes */}
-      <h1>Haga una pregunta</h1>
-      <ContactForm />
+      <main class="principal">
+        <h1 class="contacto__titulo">Nuestra Historia</h1>
+        <div class="nuestra-historia">
+          <p class="nuestra-historia__texto">
+            En
+            <span class="nuestra-historia__texto__resaltar">Hermanos Jota</span>
+            creemos que un mueble no es solo un objeto, sino
+            <span class="nuestra-historia__texto__resaltar">
+              una parte esencial de la vida cotidiana
+            </span>
+            . Desde nuestros comienzos, hemos trabajado para
+            <span class="nuestra-historia__texto__resaltar">
+              redescubrir el arte de la carpintería
+            </span>
+            , creando piezas que
+            <span class="nuestra-historia__texto__resaltar">
+              trascienden su función
+            </span>
+            y transmiten calidez, historia y carácter.
+          </p>
+          <br />
+          <p class="nuestra-historia__texto">
+            Cada diseño surge del
+            <span class="nuestra-historia__texto__resaltar">
+              encuentro entre herencia e innovación
+            </span>
+            . Honramos las técnicas tradicionales que nos identifican, mientras
+            exploramos
+            <span class="nuestra-historia__texto__resaltar">
+              nuevas formas y líneas modernas
+            </span>
+            que mantienen la esencia artesanal. Usamos
+            <span class="nuestra-historia__texto__resaltar">
+              maderas nobles de origen responsable
+            </span>
+            , acabados naturales y procesos que reflejan nuestro
+            <span class="nuestra-historia__texto__resaltar">
+              compromiso con la sustentabilidad
+            </span>
+            .
+          </p>
+          <br />
+          <p>
+            Con más de
+            <span class="nuestra-historia__texto__resaltar">
+              30 años de tradición
+            </span>
+            , acompañamos a nuestros clientes en la construcción de hogares
+            llenos de identidad. Cada pieza de
+            <span class="nuestra-historia__texto__resaltar">Hermanos Jota</span>
+            está pensada para
+            <span class="nuestra-historia__texto__resaltar">
+              envejecer con gracia
+            </span>
+            , convertirse en parte de tu historia y ofrecerte un
+            <span class="nuestra-historia__texto__resaltar">
+              legado que trasciende generaciones
+            </span>
+            .
+          </p>
+          <br />
+          <h2 class="nuestra-historia__texto__subtitulo">
+            Video Institucional - Hermanos Jota
+          </h2>
+          <video poster="Images/logo.svg" preload="metadata" controls>
+            <source
+              src="Videos/Video-institucional-Hermanos-Jota.mp4"
+              type="video/mp4"
+            />
+            <source
+              src="Videos/Video institucional Hermanos Jota.webm"
+              type="video/webm"
+            />
+            <img src="Images/exclamation.png" alt="Video no soportado" />
+            Tu navegador no soporta el elemento video.
+          </video>
+        </div>
+
+        <h1 class="contacto__titulo" id="contacto-form">
+          Haga una pregunta
+        </h1>
+        <div class="contacto">
+          <ContactForm />
+        </div>
+
+        <h1 class="contacto__titulo">Contacto Digital</h1>
+        <div class="contacto-digital">
+          <table class="contacto-digital__tabla">
+            <tbody>
+              <tr>
+                <td class="contacto-digital__tabla__elemento-izquierdo">
+                  Email general
+                </td>
+                <td>
+                  <a href="mailto:info@hermanosjota.com.ar">
+                    info@hermanosjota.com.ar
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="contacto-digital__tabla__elemento-izquierdo">
+                  Ventas
+                </td>
+                <td>
+                  <a href="mailto:ventas@hermanosjota.com.ar">
+                    ventas@hermanosjota.com.ar
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="contacto-digital__tabla__elemento-izquierdo">
+                  Instagram
+                </td>
+                <td>@hermanosjota_ba</td>
+              </tr>
+              <tr>
+                <td class="contacto-digital__tabla__elemento-izquierdo">
+                  WhatsApp
+                </td>
+                <td>+54 11 4567-8900</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
     </div>
   );
 }
