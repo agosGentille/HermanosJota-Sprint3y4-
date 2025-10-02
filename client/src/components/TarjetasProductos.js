@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/TarjetaProd.css'; 
 
 function TarjetasProductos({ productos, mostrarMax}) {
@@ -21,14 +22,15 @@ function TarjetasProductos({ productos, mostrarMax}) {
         <div className={`tarjeta-producto ${mostrar ? 'mostrar' : ''}`}>
           <div className="fondo-tarjeta">
             <div className='info-producto'>
-              <a key={producto.id} href={`producto.html?id=${producto.id}`} >
+              <Link key={producto.id} to={`/ProductDetail/${producto.id}`}>
                 <h3>{producto.titulo}</h3>
                 <div className="tarjeta-foto">
-                  <img src={producto.imagen} alt={producto.titulo} className="img-normal" />
-                  <img src={producto.imagenHover} alt={producto.titulo} className="img-hover" />
+                    <img src={producto.imagen} alt={producto.titulo} className="img-normal" />
+                    <img src={producto.imagenHover} alt={producto.titulo} className="img-hover" />
                 </div>
                 <p>${producto.Precio.toLocaleString('es-AR')}</p>
-              </a>
+            </Link>
+
             </div>
               <div className="btnAgregarCarrito">
                 <span className="material-symbols-outlined">shopping_bag</span>
@@ -40,5 +42,7 @@ function TarjetasProductos({ productos, mostrarMax}) {
     </>
   );
 }
+
+export default TarjetasProductos;
 
 export default TarjetasProductos;

@@ -43,45 +43,40 @@ body {
     background-color: rgba(240, 230, 211, 0.8);
 }
 
-.detalle_info {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: left;
-  width: 100%;
-  max-width: 800px;
-}
-
-
-.info-detalle {
-    width: 100%;
-    font-family: Arial, sans-serif;
-    line-height: 1.5;
-}
-
-.info-detalle h2 {
+.detalle_producto h2 {
     color: #a0522d;
     font-size: 24px;
-    margin-bottom: 10px;
+    margin: 10px 0;
     text-align: center;
-    font-family: "Playfair Display",sans-serif;
+    font-family: "Playfair Display", sans-serif;
 }
 
-.info-detalle ul {
+.detalle_producto p {
+    line-height: 1.5;
+    font-family: Arial, sans-serif;
+}
+
+.detalle_info {
+    width: 100%;
     background-color: rgba(240, 230, 211, 0.8);
-    padding: 10px 15px;
+    padding: 15px;
     border-radius: 8px;
-    list-style-type: none;
-    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.info-detalle ul li {
-    padding: 5px 0;
-    font-weight: 500;
-}
-
-.info-detalle ul li strong {
+.detalle_info p strong {
     color: #c47a6d;
+    margin-right: 5px;
+}
+
+.precio {
+    text-align: right;
+    font-family: "Playfair Display", sans-serif;
+    font-size: 2rem;
+    margin-top: 10px;
+    color: #333;
 }
 
 .btn-agregarcarrito {
@@ -98,15 +93,11 @@ body {
     width: 100%;
 }
 
-.precio{
-    text-align: right;
-    font-family: "Playfair Display",sans-serif;
-    font-size: 2rem;
-}
 .btn-agregarcarrito:hover {
     background-color: #a0522d;
     letter-spacing: 1px;
 }
+
 
 @media (min-width: 768px) {
     .detalle_producto {
@@ -122,11 +113,11 @@ body {
         width: 50%;
     }
 
-    .info-detalle {
+    .detalle_info {
         width: 50%;
     }
 
-    .info-detalle h2 {
+    .detalle_producto h2 {
         font-size: 28px;
         text-align: left;
     }
@@ -155,7 +146,8 @@ body {
         margin-bottom: 20vh;
     }
 
-    .info-detalle h2 {
+    .detalle_producto h2 {
         font-size: 30px;
     }
 }
+
