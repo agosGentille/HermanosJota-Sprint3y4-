@@ -44,5 +44,3 @@ function TarjetasProductos({ productos, mostrarMax}) {
 }
 
 export default TarjetasProductos;
-
-export default TarjetasProductos;
