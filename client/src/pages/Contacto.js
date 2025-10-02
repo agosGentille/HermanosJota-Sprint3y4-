@@ -1,11 +1,15 @@
-import React from 'react';
+import React from "react";
+import "../styles/Contacto.css";
+import ContactForm from "../components/ContactForm";
 
-function Contacto() {
+function App() {
   return (
-    <main>
-      <h1>Esta es la pantalla de Contacto</h1>
-    </main>
+    <div>
+      {/* otros componentes */}
+      <h1>Haga una pregunta</h1>
+      <ContactForm />
+    </div>
   );
 }
 
-export default Contacto;
+export default App;
