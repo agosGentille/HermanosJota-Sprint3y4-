@@ -8,11 +8,77 @@ const initialState = {
   mensaje: "",
 };
 
+const initialErrors = {
+  nombre: "",
+  email: "",
+  mensaje: "",
+};
+
 const formularios = [];
 
 export default function ContactForm() {
   const [formData, setFormData] = useState(initialState);
+  const [errors, setErrors] = useState(initialErrors);
   const [successMessage, setSuccessMessage] = useState("");
+
+  const MENSAJE_MIN_LENGTH = 10;
+  const MENSAJE_MAX_LENGTH = 500;
+  const NOMBRE_MAX_LENGTH = 100;
+
+  const emailRegex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+  const validateField = (name, value) => {
+    let error = "";
+
+    switch (name) {
+      case "nombre":
+        if (!value.trim()) {
+          error = "El nombre es obligatorio.";
+        } else if (value.trim().length < 2) {
+          error = "El nombre debe tener al menos 2 caracteres.";
+        } else if (value.length > NOMBRE_MAX_LENGTH) {
+          error = `El nombre no puede exceder ${NOMBRE_MAX_LENGTH} caracteres.`;
+        }
+        break;
+
+      case "email":
+        if (!value.trim()) {
+          error = "El email es obligatorio.";
+        } else if (!emailRegex.test(value.trim())) {
+          error = "Por favor, ingrese un email válido.";
+        }
+        break;
+
+      case "mensaje":
+        const trimmedLength = value.trim().length;
+        if (!value.trim()) {
+          error = "El mensaje es obligatorio.";
+        } else if (trimmedLength < MENSAJE_MIN_LENGTH) {
+          error = `El mensaje debe tener al menos ${MENSAJE_MIN_LENGTH} caracteres.`;
+        } else if (value.length > MENSAJE_MAX_LENGTH) {
+          error = `El mensaje no puede exceder ${MENSAJE_MAX_LENGTH} caracteres.`;
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    return error;
+  };
+
+  const validateForm = () => {
+    const newErrors = {
+      nombre: validateField("nombre", formData.nombre),
+      email: validateField("email", formData.email),
+      mensaje: validateField("mensaje", formData.mensaje),
+    };
+
+    setErrors(newErrors);
+
+    return !Object.values(newErrors).some((error) => error !== "");
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,28 +89,6 @@ export default function ContactForm() {
     }));
   };
 
-  const validateForm = () => {
-    const { nombre, email, mensaje } = formData;
-
-    if (!nombre.trim() || !email.trim() || !mensaje.trim()) {
-      alert("Por favor, complete todos los campos.");
-      return false;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert("Por favor, ingrese un correo electrónico válido.");
-      return false;
-    }
-
-    if (mensaje.trim().length < 10) {
-      alert("El mensaje debe tener al menos 10 caracteres.");
-      return false;
-    }
-
-    return true;
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -52,7 +96,13 @@ export default function ContactForm() {
       return;
     }
 
-    console.log("Datos del formulario:", formData);
+    const cleanData = {
+      nombre: formData.nombre.trim(),
+      email: formData.email.trim().toLowerCase(),
+      mensaje: formData.mensaje.trim(),
+    };
+
+    console.log("Datos del formulario:", cleanData);
 
     // espacio para la conexion con el backend
     // la siguiente funcion es la que estaba del sprint anterior
@@ -81,18 +131,21 @@ export default function ContactForm() {
     setSuccessMessage("¡Mensaje enviado con éxito!");
     formularios.push(formData);
     setFormData(initialState);
+    setErrors(initialErrors);
   };
 
+  const mensajeCharsLeft = MENSAJE_MAX_LENGTH - formData.mensaje.length;
+  const mensajeCharsCount = formData.mensaje.trim().length;
+
   return (
-    // eslint-disable-next-line
     <form
       aria-label="contact-form"
-      role="form"
       onSubmit={handleSubmit}
       className="contacto__formulario"
+      noValidate
     >
       <label htmlFor="nombre" className="contacto__formulario__label">
-        Nombre:
+        Nombre: <span className="required">*</span>
       </label>
       <input
         id="nombre"
@@ -100,13 +153,14 @@ export default function ContactForm() {
         type="text"
         value={formData.nombre}
         onChange={handleChange}
-        required
+        aria-describedby={errors.nombre ? "nombre-error" : undefined}
         className="contacto__formulario__input contacto__formulario__campo"
         placeholder="Ingrese su nombre..."
+        maxLength={NOMBRE_MAX_LENGTH}
       />
 
       <label htmlFor="email" className="contacto__formulario__label">
-        Email:
+        Email: <span className="required">*</span>
       </label>
       <input
         id="email"
@@ -114,40 +168,54 @@ export default function ContactForm() {
         type="email"
         value={formData.email}
         onChange={handleChange}
-        required
+        aria-describedby={errors.email ? "email-error" : undefined}
         className="contacto__formulario__input contacto__formulario__campo"
         placeholder="Ingrese su email..."
       />
 
       <label htmlFor="mensaje" className="contacto__formulario__label">
-        Mensaje:
+        Mensaje: <span className="required">*</span>
       </label>
       <textarea
         id="mensaje"
         name="mensaje"
-        rows="4"
+        rows="5"
         value={formData.mensaje}
         onChange={handleChange}
-        required
+        aria-describedby={errors.mensaje ? "mensaje-error" : "mensaje-contador"}
         className="contacto__formulario__mensaje contacto__formulario__campo"
         placeholder="Ingrese su mensaje..."
+        maxLength={MENSAJE_MAX_LENGTH}
       />
+      <div className="mensaje-info">
+        <span
+          id="mensaje-contador"
+          className={`char-counter ${
+            mensajeCharsLeft < 50 ? "char-counter-warning" : ""
+          }`}
+        >
+          {mensajeCharsCount}/{MENSAJE_MIN_LENGTH} caracteres mínimo |{" "}
+          {mensajeCharsLeft} restantes
+        </span>
+      </div>
 
-      <button type="submit" className="contacto__formulario__boton">
+      <button
+        type="submit"
+        className="contacto__formulario__boton"
+        disabled={successMessage !== ""}
+      >
         Enviar
       </button>
 
       {successMessage && (
-        <p
+        <div
           id="mensaje-exito"
-          style={{
-            color: "#87a96b",
-            fontWeight: "700",
-            marginTop: "1rem",
-          }}
+          className="success-message"
+          role="status"
+          aria-live="polite"
         >
-          {successMessage}
-        </p>
+          ✓ {successMessage}
+        </div>
       )}
     </form>
   );
