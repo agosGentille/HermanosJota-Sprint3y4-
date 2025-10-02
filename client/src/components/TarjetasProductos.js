@@ -20,11 +20,14 @@ function TarjetasProductos({ productos, mostrarMax}) {
       {lista.map((producto) => (
           <div className={`tarjeta-producto ${mostrar ? 'mostrar' : ''}`}>
               <a key={producto.id} href={`producto.html?id=${producto.id}`} >
-                <img src={producto.imagen} alt={producto.titulo} className="tarjeta-foto" />
+                <div className="tarjeta-foto">
+                  <img src={producto.imagen} alt={producto.titulo} className="img-normal" />
+                  <img src={producto.imagenHover} alt={producto.titulo} className="img-hover" />
+                </div>
                 <h3>{producto.titulo}</h3>
                 <p>${producto.Precio}</p>
               </a>
-             <div className="btnAgregarCarrito">
+              <div className="btnAgregarCarrito">
                 <span className="material-symbols-outlined">shopping_bag</span>
                 <span> | AGREGAR AL CARRITO</span>
               </div> 

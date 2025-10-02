@@ -29,7 +29,10 @@ function Home() {
     .then(data => {
       const productosConUrl = data.map(p => ({
         ...p,
-        imagen: `http://localhost:4000${p.imagen}`
+        //declaramos la ruta completa de las imagenes xq en "data" tenemos las rutas relativas
+        //y x defecto va al puerto 3000 (donde corre el front) pero estan en el backend (puerto 4000)
+        imagen: `http://localhost:4000${p.imagen}`,
+        imagenHover: `http://localhost:4000${p.imagenHover}`
       }));
       setProductos(productosConUrl);
       setLoading(false);
