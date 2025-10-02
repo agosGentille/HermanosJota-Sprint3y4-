@@ -12,7 +12,7 @@ export default function ProductDetail({ onAddToCart }) {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`/api/productos/${id}`)
+     fetch(`http://localhost:4000/api/productos/${id}`)
       .then(res => {
         if (!res.ok) throw new Error("Producto no encontrado");
         return res.json();
@@ -29,7 +29,7 @@ export default function ProductDetail({ onAddToCart }) {
   return (
     <div className="detalle_producto">
       <button onClick={() => navigate(-1)}>← Volver al catálogo</button>
-      <img src={producto.imagen} alt={producto.titulo} />
+      <img src={`http://localhost:4000${producto.imagen}`} alt={producto.titulo} />
       <h2>{producto.titulo}</h2>
       <p>{producto.descripcion}</p>
       <p className="precio">${producto.Precio ?? "Consultar"}.-</p>
