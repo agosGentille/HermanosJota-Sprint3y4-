@@ -20,6 +20,7 @@ export default function ContactForm() {
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState(initialErrors);
   const [successMessage, setSuccessMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [touched, setTouched] = useState({
     nombre: false,
     email: false,
@@ -122,7 +123,7 @@ export default function ContactForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
@@ -138,38 +139,48 @@ export default function ContactForm() {
     console.log("Datos del formulario:", cleanData);
 
     // espacio para la conexion con el backend
-    // la siguiente funcion es la que estaba del sprint anterior
-    // async function cargarDatosDelFormulario(formData) {
-    //   try {
-    //     const url = "/api/contacto"; // cuando tengamos el backend hay que cambiar aca
-    //     const response = await fetch(url, {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(formData),
-    //     });
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("/api/contacto", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cleanData),
+      });
 
-    //     if (response.ok) {
-    //       alert("Mensaje enviado al servidor correctamente");
-    //     } else {
-    //       alert("Error al enviar el mensaje al servidor");
-    //     }
-    //   } catch (error) {
-    //     console.error("Error:", error);
-    //     alert("Error de conexión");
-    //   }
-    // }
+      const data = await response.json();
 
-    setSuccessMessage("¡Mensaje enviado con éxito!");
-    formularios.push(formData);
-    setFormData(initialState);
-    setErrors(initialErrors);
-    setTouched({
-      nombre: false,
-      email: false,
-      mensaje: false,
-    });
+      if (!response.ok) {
+        throw new Error(data.error || "Error al enviar el mensaje al servidor");
+      }
+
+      console.log("Mensaje enviado al servidor correctamente:", data);
+
+      setSuccessMessage("¡Mensaje enviado con éxito!");
+      formularios.push(formData);
+      setFormData(initialState);
+      setErrors(initialErrors);
+      setTouched({
+        nombre: false,
+        email: false,
+        mensaje: false,
+      });
+    } catch (error) {
+      console.error("Error al enviar el mensaje al servidor:", error);
+
+      setErrors({
+        ...initialErrors,
+        mensaje: error.message || "Error al enviar el mensaje",
+      });
+
+      setTouched((prev) => ({
+        ...prev,
+        mensaje: true,
+      }));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const mensajeCharsLeft = MENSAJE_MAX_LENGTH - formData.mensaje.length;
@@ -192,6 +203,7 @@ export default function ContactForm() {
         value={formData.nombre}
         onChange={handleChange}
         onBlur={handleBlur}
+        disabled={isSubmitting}
         aria-invalid={touched.nombre && errors.nombre ? "true" : "false"}
         aria-describedby={errors.nombre ? "nombre-error" : undefined}
         className={`contacto__formulario__input  ${
@@ -206,7 +218,7 @@ export default function ContactForm() {
       />
       {touched.nombre && errors.nombre && (
         <span id="nombre-error" className="error-message" role="alert">
-          {errors.nombre}
+          ⚠️ {errors.nombre}
         </span>
       )}
 
@@ -220,6 +232,7 @@ export default function ContactForm() {
         value={formData.email}
         onChange={handleChange}
         onBlur={handleBlur}
+        disabled={isSubmitting}
         aria-invalid={touched.email && errors.email ? "true" : "false"}
         aria-describedby={errors.email ? "email-error" : undefined}
         className={`contacto__formulario__input  ${
@@ -233,7 +246,7 @@ export default function ContactForm() {
       />
       {touched.email && errors.email && (
         <span id="email-error" className="error-message" role="alert">
-          {errors.email}
+          ⚠️ {errors.email}
         </span>
       )}
 
@@ -247,6 +260,7 @@ export default function ContactForm() {
         value={formData.mensaje}
         onChange={handleChange}
         onBlur={handleBlur}
+        disabled={isSubmitting}
         aria-invalid={touched.mensaje && errors.mensaje ? "true" : "false"}
         aria-describedby={errors.mensaje ? "mensaje-error" : "mensaje-contador"}
         className={`contacto__formulario__mensaje  ${
@@ -272,16 +286,20 @@ export default function ContactForm() {
       </div>
       {touched.mensaje && errors.mensaje && (
         <span id="mensaje-error" className="error-message" role="alert">
-          {errors.mensaje}
+          ⚠️ {errors.mensaje}
         </span>
       )}
 
       <button
         type="submit"
         className="contacto__formulario__boton"
-        disabled={successMessage !== ""}
+        disabled={isSubmitting || successMessage !== ""}
       >
-        Enviar
+        {isSubmitting
+          ? "Enviando..."
+          : successMessage
+          ? "Enviado"
+          : "Enviar Mensaje"}
       </button>
 
       {successMessage && (
@@ -291,7 +309,7 @@ export default function ContactForm() {
           role="status"
           aria-live="polite"
         >
-          ✓ {successMessage}
+          {successMessage}
         </div>
       )}
     </form>
