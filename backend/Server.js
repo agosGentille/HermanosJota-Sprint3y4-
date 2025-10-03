@@ -7,6 +7,7 @@ const path = require('path');
 
 const authRoutes = require("./routes/authRoutes");
 const productosRoutes = require("./routes/productos.js");
+const carritoRoutes = require("./routes/carritoRoutes");
 
 app.use(cors()); // permite leer JSON en req.body
 app.use(express.json()); //parsea JSON para que no llegue undefined 
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 //rutas
 app.use("/api", authRoutes);   
 app.use('/api/productos', productosRoutes); 
+app.use("/api/carrito", carritoRoutes);
 
 app.use('/Images', express.static(path.join(__dirname, 'public/images')));
 

@@ -7,7 +7,7 @@ import '../styles/HeaderFooter.css';
 import logo from '../images/logo.svg';
 import menu from '../images/iconoMenu.png';
 
-function Header() {
+function Header({ toggleCarrito, carrito }) {
   const [showLogin, setShowLogin] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [usuario, setUsuario] = useState({ nombre: null, email: null });
@@ -21,28 +21,28 @@ function Header() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Cargar usuario guardado 
+  // Cargar usuario guardado
   useEffect(() => {
     const nombreGuardado = localStorage.getItem("nombreUsuario");
-    if (nombreGuardado){
-      setUsuario({ nombre: nombreGuardado, email: localStorage.getItem("emailUsuario")});
+    const emailGuardado = localStorage.getItem("emailUsuario");
+    if (nombreGuardado || emailGuardado) {
+      setUsuario({ nombre: nombreGuardado, email: emailGuardado });
     }
   }, []);
 
-  const handleLogin = ({ nombre }) => {
-    setUsuario({ nombre });
+  const handleLogin = ({ nombre, email }) => {
+    setUsuario({ nombre, email });
   };
 
   const handleLogout = () => {
     if (window.confirm("¿Desea cerrar sesión?")) {
       localStorage.removeItem("nombreUsuario");
       localStorage.removeItem("emailUsuario");
-      setUsuario({ nombre: null});
+      setUsuario({ nombre: null, email: null });
     }
   };
 
-
- return (
+  return (
     <header className='header-sticky'>
       <div className="header-marca">
         <img src={logo} alt="Logo Hermanos Jota" id="logo" />
@@ -63,8 +63,7 @@ function Header() {
       </nav>
 
       <div className="header-right">
-        {/*en OnClick Si existe un nombre (esta logueado) damos la op de cerrar 
-        sesion, sino la op de loguearse con el form de Login*/}
+        {/* Icono usuario */}
         <span
           className={`material-symbols-outlined header-usuario ${usuario.nombre ? "logueado" : ""}`}
           onClick={() => (usuario.nombre ? handleLogout() : setShowLogin(true))}
@@ -73,13 +72,29 @@ function Header() {
           account_circle
         </span>
 
-        <ModalLogin show={showLogin} onClose={() => setShowLogin(false)} onLogin={handleLogin} onShowRegister={() => setShowRegister(true)} />
-        <ModalRegister show={showRegister} onClose={() => setShowRegister(false)} onLogin={handleLogin} onShowLogin={() => setShowLogin(true)}/>
-        <span className="header-carrito material-symbols-outlined" id="carrito-icono" title="Carrito">
-          shopping_bag
-        </span>
-        <span className="numerito" id="numerito">0</span>
+        {/* Modales */}
+        <ModalLogin 
+          show={showLogin} 
+          onClose={() => setShowLogin(false)} 
+          onLogin={handleLogin} 
+          onShowRegister={() => setShowRegister(true)} 
+        />
+        <ModalRegister 
+          show={showRegister} 
+          onClose={() => setShowRegister(false)} 
+          onLogin={handleLogin} 
+          onShowLogin={() => setShowLogin(true)} 
+        />
 
+        {/* Carrito */}
+        <div className="header-carrito-container" onClick={toggleCarrito}>
+          <span className="header-carrito material-symbols-outlined" title="Carrito">
+            shopping_bag
+          </span>
+          <span className="numerito">{carrito.length}</span>
+        </div>
+
+        {/* Menú hamburguesa para móvil */}
         {isMobile && (
           <img
             src={menu}
