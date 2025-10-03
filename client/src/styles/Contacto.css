@@ -41,8 +41,7 @@ main {
   display: block;
   position: relative;
   z-index: 1;
-  /* temporal */
-  margin-top: 4vh;
+  margin-top: 4vh; /* temporal */
   padding: 1rem;
 }
 
@@ -150,6 +149,10 @@ section {
   font-weight: var(--texto-peso-medio);
 }
 
+.required {
+  color: red;
+}
+
 .contacto__formulario__input,
 .contacto__formulario__mensaje {
   padding: 0.75rem;
@@ -185,6 +188,35 @@ section {
 .contacto__formulario__boton:focus {
   background-color: var(--color-secundario);
   color: var(--color-texto-secundario);
+}
+
+.error-message {
+  display: block;
+  color: red;
+  font-weight: var(--texto-peso-medio);
+}
+
+.input-error {
+  background-color: #fff0f0;
+}
+
+.input-success {
+  background-color: #f0fff0;
+}
+
+.char-counter {
+  font-size: 0.75rem;
+  color: grey;
+}
+
+.char-counter-warning {
+  color: orange;
+  font-weight: var(--texto-peso-medio);
+}
+
+.mensaje-exito {
+  color: #87a96b;
+  font-weight: var(--texto-peso-grueso);
 }
 
 /*  seccion contenido digital */

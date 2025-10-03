@@ -20,13 +20,17 @@ export default function ContactForm() {
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState(initialErrors);
   const [successMessage, setSuccessMessage] = useState("");
+  const [touched, setTouched] = useState({
+    nombre: false,
+    email: false,
+    mensaje: false,
+  });
 
   const MENSAJE_MIN_LENGTH = 10;
   const MENSAJE_MAX_LENGTH = 500;
   const NOMBRE_MAX_LENGTH = 100;
 
-  const emailRegex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const validateField = (name, value) => {
     let error = "";
@@ -77,6 +81,12 @@ export default function ContactForm() {
 
     setErrors(newErrors);
 
+    setTouched({
+      nombre: true,
+      email: true,
+      mensaje: true,
+    });
+
     return !Object.values(newErrors).some((error) => error !== "");
   };
 
@@ -86,6 +96,29 @@ export default function ContactForm() {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
+    }));
+
+    if (touched[name]) {
+      const error = validateField(name, value);
+      setErrors((prev) => ({
+        ...prev,
+        [name]: error,
+      }));
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+
+    setTouched((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+
+    const error = validateField(name, value);
+    setErrors((prev) => ({
+      ...prev,
+      [name]: error,
     }));
   };
 
@@ -132,6 +165,11 @@ export default function ContactForm() {
     formularios.push(formData);
     setFormData(initialState);
     setErrors(initialErrors);
+    setTouched({
+      nombre: false,
+      email: false,
+      mensaje: false,
+    });
   };
 
   const mensajeCharsLeft = MENSAJE_MAX_LENGTH - formData.mensaje.length;
@@ -153,11 +191,24 @@ export default function ContactForm() {
         type="text"
         value={formData.nombre}
         onChange={handleChange}
+        onBlur={handleBlur}
+        aria-invalid={touched.nombre && errors.nombre ? "true" : "false"}
         aria-describedby={errors.nombre ? "nombre-error" : undefined}
-        className="contacto__formulario__input contacto__formulario__campo"
+        className={`contacto__formulario__input  ${
+          touched.nombre && errors.nombre ? "input-error" : ""
+        } ${
+          touched.nombre && !errors.nombre && formData.nombre
+            ? "input-success"
+            : ""
+        }`}
         placeholder="Ingrese su nombre..."
         maxLength={NOMBRE_MAX_LENGTH}
       />
+      {touched.nombre && errors.nombre && (
+        <span id="nombre-error" className="error-message" role="alert">
+          {errors.nombre}
+        </span>
+      )}
 
       <label htmlFor="email" className="contacto__formulario__label">
         Email: <span className="required">*</span>
@@ -168,10 +219,23 @@ export default function ContactForm() {
         type="email"
         value={formData.email}
         onChange={handleChange}
+        onBlur={handleBlur}
+        aria-invalid={touched.email && errors.email ? "true" : "false"}
         aria-describedby={errors.email ? "email-error" : undefined}
-        className="contacto__formulario__input contacto__formulario__campo"
+        className={`contacto__formulario__input  ${
+          touched.email && errors.email ? "input-error" : ""
+        } ${
+          touched.email && !errors.email && formData.email
+            ? "input-success"
+            : ""
+        }`}
         placeholder="Ingrese su email..."
       />
+      {touched.email && errors.email && (
+        <span id="email-error" className="error-message" role="alert">
+          {errors.email}
+        </span>
+      )}
 
       <label htmlFor="mensaje" className="contacto__formulario__label">
         Mensaje: <span className="required">*</span>
@@ -182,8 +246,16 @@ export default function ContactForm() {
         rows="5"
         value={formData.mensaje}
         onChange={handleChange}
+        onBlur={handleBlur}
+        aria-invalid={touched.mensaje && errors.mensaje ? "true" : "false"}
         aria-describedby={errors.mensaje ? "mensaje-error" : "mensaje-contador"}
-        className="contacto__formulario__mensaje contacto__formulario__campo"
+        className={`contacto__formulario__mensaje  ${
+          touched.mensaje && errors.mensaje ? "input-error" : ""
+        } ${
+          touched.mensaje && !errors.mensaje && formData.mensaje
+            ? "input-success"
+            : ""
+        }`}
         placeholder="Ingrese su mensaje..."
         maxLength={MENSAJE_MAX_LENGTH}
       />
@@ -198,6 +270,11 @@ export default function ContactForm() {
           {mensajeCharsLeft} restantes
         </span>
       </div>
+      {touched.mensaje && errors.mensaje && (
+        <span id="mensaje-error" className="error-message" role="alert">
+          {errors.mensaje}
+        </span>
+      )}
 
       <button
         type="submit"
@@ -210,7 +287,7 @@ export default function ContactForm() {
       {successMessage && (
         <div
           id="mensaje-exito"
-          className="success-message"
+          className="success-message mensaje-exito"
           role="status"
           aria-live="polite"
         >
