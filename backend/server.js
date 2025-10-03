@@ -9,6 +9,7 @@ const path = require("path");
 const authRoutes = require("./routes/authRoutes.js");
 const productosRoutes = require("./routes/productos.js");
 const contactoRoutes = require("./routes/ContactRoutes.js");
+const carritoRoutes = require("./routes/carritoRoutes");
 
 app.use(cors()); // permite leer JSON en req.body
 app.use(express.json()); //parsea JSON para que no llegue undefined
@@ -20,9 +21,10 @@ app.use((req, res, next) => {
 });
 
 //rutas
-app.use("/api", authRoutes);
-app.use("/api/productos", productosRoutes);
+app.use("/api", authRoutes);   
+app.use('/api/productos', productosRoutes);
 app.use("/api/contacto", contactoRoutes);
+app.use("/api/carrito", carritoRoutes);
 
 app.use("/Images", express.static(path.join(__dirname, "public/images")));
 
