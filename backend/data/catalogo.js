@@ -329,7 +329,7 @@ const productos = [
     colchon: null,
     masVendidos: false
   },
-  {
+   {
     id: "Cama-Neuquén",
     titulo: "Cama Neuquén",
     imagen: "/images/Catalogo/Cama-Neuquén.png",
