@@ -78,7 +78,7 @@ function Home() {
             </div>
           </div>
         </section>
-
+      
         {/* Inspiraciones */}
         <section className="secc-inspiraciones">
           <div className="contenedor-inspiraciones">
