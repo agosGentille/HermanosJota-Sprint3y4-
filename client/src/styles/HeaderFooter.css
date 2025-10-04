@@ -178,7 +178,7 @@ footer {
     transition: all 0.3s ease;
     position: relative;
     padding-bottom: 3px;
-     width: fit-content;
+    width: fit-content;
 }
 .footer-columna1 > a::after {
   content: "";

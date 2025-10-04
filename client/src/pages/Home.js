@@ -21,22 +21,30 @@ function Home() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    //sirve para hacer peticiones HTTP. En este caso al backend para pedir la lista d productos
     fetch('http://localhost:4000/api/productos')
+    //Cuando fetch obtiene respuesta, pasa un objeto Response a este .then.
+    //Ese objeto tiene info como el estado (200, 404, 500, etc.), cabeceras y métodos como .json()
     .then(res => {
       if (!res.ok) throw new Error("Error al cargar los productos");
       return res.json();
     })
+    //Este .then recibe el data (el listado de productos) ya convertido en JSON
     .then(data => {
-      const productosConUrl = data.map(p => ({
+      const productosConUrl = data.map(p => ({ //recorre cada producto (p) y devuelve un objeto nuevo
+        //copia todas las propiedades originales de ese producto
         ...p,
         //declaramos la ruta completa de las imagenes xq en "data" tenemos las rutas relativas
         //y x defecto va al puerto 3000 (donde corre el front) pero estan en el backend (puerto 4000)
         imagen: `http://localhost:4000${p.imagen}`,
         imagenHover: `http://localhost:4000${p.imagenHover}`
       }));
+      //guardamos los productos con las nuevas url
       setProductos(productosConUrl);
+      //Actualiza estado loading para mostrar un cartel de "Cargando…"
       setLoading(false);
     })
+    //Si en cualquier parte del proceso hubo un error, entra acá
     .catch(err => {
       console.error(err);
       setError(err.message || "Error al cargar los productos");
@@ -158,7 +166,6 @@ function Home() {
                 />
               )}
             </div>
-            
           </div>
         </section>
         
