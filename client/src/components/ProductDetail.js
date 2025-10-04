@@ -5,7 +5,6 @@ import '../styles/productDetail.css';
 export default function ProductDetail({ onAddToCart }) {
   const { id } = useParams(); // obtenemos el id de la URL
   const navigate = useNavigate();
-
   const [producto, setProducto] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,6 +21,7 @@ export default function ProductDetail({ onAddToCart }) {
       .finally(() => setLoading(false));
   }, [id]);
 
+
   if (loading) return <p>Cargando...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
   if (!producto) return null;
@@ -29,7 +29,7 @@ export default function ProductDetail({ onAddToCart }) {
   return (
       <div>
         <div className="detalle_producto">
-          <img src={`http://localhost:4000${producto.imagen}`} alt={producto.titulo} />
+          <img src={`http://localhost:4000${producto.imagen}`} alt={producto.titulo} className="imagen-zoom" />
           <div className="detalle_contenido">
             <h2>{producto.titulo}</h2>
             <p className="precio">${producto.Precio ?? "Consultar"}.-</p>
