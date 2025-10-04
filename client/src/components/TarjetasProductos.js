@@ -22,13 +22,6 @@ function TarjetasProductos({ productos, mostrarMax}) {
           <div className="fondo-tarjeta">
             <div className='info-producto'>
               <a key={producto.id} href={`producto.html?id=${producto.id}`} >
-<<<<<<< HEAD
-=======
-                <div className="tarjeta-foto">
-                  <img src={producto.imagen} alt={producto.titulo} className="img-normal" />
-                  <img src={producto.imagenHover} alt={producto.titulo} className="img-hover" />
-                </div>
->>>>>>> 3d51779e7d6b415292b78a62ac3e8fa827d3abfb
                 <h3>{producto.titulo}</h3>
                 <div className="tarjeta-foto">
                   <img src={producto.imagen} alt={producto.titulo} className="img-normal" />
@@ -36,10 +29,7 @@ function TarjetasProductos({ productos, mostrarMax}) {
                 </div>
                 <p>${producto.Precio.toLocaleString('es-AR')}</p>
               </a>
-<<<<<<< HEAD
             </div>
-=======
->>>>>>> 3d51779e7d6b415292b78a62ac3e8fa827d3abfb
               <div className="btnAgregarCarrito">
                 <span className="material-symbols-outlined">shopping_bag</span>
                 <span> | Comprar </span>

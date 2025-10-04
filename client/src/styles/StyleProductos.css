@@ -189,9 +189,103 @@
   color: #d4a437; /* dorado si es favorito */
 }
 
+/* 🔹 Contenedor principal de Productos */
+.productos-container {
+  display: flex;
+  flex-direction: column;   /* mobile: todo en columna */
+  gap: 20px;
+  padding: 20px;
+  background-color: #fafafa;
+}
+
+/* 🔹 Panel lateral (en mobile aparece arriba) */
+.filtros {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.filtros h2 {
+  margin-bottom: 12px;
+  font-size: 1rem;
+  color: #a0522d;
+}
+
+.filtro-seccion {
+  margin-bottom: 16px;
+}
+
+.filtro-seccion h3 {
+  margin-bottom: 6px;
+  color: #c47a6d;
+  font-size: 0.95rem;
+}
+
+.filtro-seccion ul {
+  list-style: none;
+  padding: 0;
+}
+
+.filtro-seccion li {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+/* 🔹 Cabecera catálogo (buscador + ordenar) */
+.catalogo-header {
+  display: flex;
+  flex-direction: column;   /* mobile: apilado */
+  gap: 10px;
+}
+
+.catalogo-header input[type="search"] {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.catalogo-header select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+.filtro-seccion label {
+  margin-left: 5px; /* o el valor que prefieras */
+}
+
+
+
+
 
 /* 🔹 Desktop */
-@media (min-width: 768px) {
+@media (min-width: 768px) 
+
+{
+  
+/* 🔹 Responsive: desktop */
+  .productos-container {
+    display: grid;
+    grid-template-columns: 250px 1fr; /* filtros a la izq, tarjetas a la der */
+    gap: 25px;
+    padding: 30px 40px;
+  }
+
+  .catalogo-header {
+    flex-direction: row;   /* buscador a la izq, ordenar a la der */
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .catalogo-header input[type="search"] {
+    max-width: 320px;
+  }
   .buscador-productos {
     flex-direction: row;
     align-items: center;
@@ -234,6 +328,118 @@
     margin: 30px;
     grid-template-columns: repeat(4, 1fr);
   }
+  .btn-limpiar {
+  background-color: #a0522d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-limpiar:hover {
+  background-color: #7a3e20;
+}
+.filtro-rango {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inputs-rango {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inputs-rango input {
+  width: 80px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.btn-aplicar-rango {
+  margin-top: 6px;
+  padding: 6px 10px;
+  background-color: #a0522d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-aplicar-rango:hover {
+  background-color: #8b4513;
+}
+/* 🔹 Bloque de rango personalizado */
+.filtro-rango {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 🔹 Estilo del título igual al de "Precio" */
+.filtro-rango label {
+  color: #c47a6d;              /* mismo tono que tus h3 */
+  font-size: 1rem;             /* igual que los títulos */
+  font-weight: 600;
+  font-family: inherit;        /* hereda la tipografía general */
+}
+
+/* 🔹 Inputs alineados y prolijos */
+.inputs-rango {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inputs-rango input {
+  width: 80px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #d3b09b;
+  text-align: center;
+  background-color: #fff;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.inputs-rango span {
+  color: #a0522d;
+  font-weight: 500;
+}
+
+.btn-aplicar-rango {
+  margin-top: 6px;
+  padding: 8px 12px;
+  background-color: transparent;
+  border: 1px solid #a0522d;
+  color: #a0522d;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.btn-aplicar-rango:hover {
+  background-color: #a0522d;
+  color: white;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 
   main {
     z-index: 1;
