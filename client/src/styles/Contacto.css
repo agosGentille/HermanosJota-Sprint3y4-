@@ -41,7 +41,7 @@ main {
   display: block;
   position: relative;
   z-index: 1;
-  margin-top: 4vh; /* temporal */
+  margin-top: clamp(80px, 10vh, 120px);
   padding: 1rem;
 }
 
@@ -222,6 +222,7 @@ section {
 /*  seccion contenido digital */
 .contacto-digital {
   max-width: 900px;
+  height: 300px;
   margin: 3rem auto;
   overflow-x: auto;
   background-color: var(--color-background);
@@ -232,6 +233,7 @@ section {
 
 .contacto-digital__tabla {
   width: 100%;
+  height: 100%;
 }
 
 .contacto-digital td {
@@ -256,6 +258,41 @@ section {
   color: var(--color-acentos-premium);
 }
 
+.contacto__ubicacion {
+  max-width: 900px;
+  margin: 3rem auto;
+  overflow-x: auto;
+  background-color: var(--color-background);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px black;
+}
+
+.contacto__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "titulo1 titulo2"
+    "digital ubicacion";
+  gap: 0 1rem;
+  align-items: center;
+}
+
+.contacto__container #contacto-digital-titulo {
+  grid-area: titulo1;
+}
+
+.contacto__container #contacto-ubicacion-titulo {
+  grid-area: titulo2;
+}
+
+.contacto__container .contacto-digital {
+  grid-area: digital;
+  width: 800px;
+}
+.contacto__container .contacto__ubicacion {
+  grid-area: ubicacion;
+}
 /*  RESPONSIVIDAD  */
 
 /* pantallas grandes */
@@ -265,6 +302,18 @@ section {
   .contacto-digital {
     max-width: 800px;
     margin: 2.5rem auto;
+  }
+}
+
+@media (max-width: 1400px) {
+  .contacto__container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "titulo1"
+      "digital"
+      "titulo2"
+      "ubicacion";
   }
 }
 

@@ -99,60 +99,79 @@ function App() {
           <ContactForm />
         </div>
 
-        <h1 class="contacto__titulo">Contacto Digital</h1>
-        <div class="contacto-digital">
-          <table class="contacto-digital__tabla">
-            <tbody>
-              <tr>
-                <td class="contacto-digital__tabla__elemento-izquierdo">
-                  Email general
-                </td>
-                <td>
-                  <a href="mailto:info@hermanosjota.com.ar">
-                    info@hermanosjota.com.ar
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td class="contacto-digital__tabla__elemento-izquierdo">
-                  Ventas
-                </td>
-                <td>
-                  <a href="mailto:ventas@hermanosjota.com.ar">
-                    ventas@hermanosjota.com.ar
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td class="contacto-digital__tabla__elemento-izquierdo">
-                  Instagram
-                </td>
-                <td>
-                  <a
-                    href="https://www.instagram.com/hermanosjota_ba"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    @hermanosjota_ba
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td class="contacto-digital__tabla__elemento-izquierdo">
-                  WhatsApp
-                </td>
-                <td>
-                  <a
-                    href="https://wa.me/5491145678900"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    +54 11 4567-8900
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="contacto__container">
+          <h1 class="contacto__titulo" id="contacto-digital-titulo">
+            Contacto Digital
+          </h1>
+          <div class="contacto-digital">
+            <table class="contacto-digital__tabla">
+              <tbody>
+                <tr>
+                  <td class="contacto-digital__tabla__elemento-izquierdo">
+                    Email general
+                  </td>
+                  <td>
+                    <a href="mailto:info@hermanosjota.com.ar">
+                      info@hermanosjota.com.ar
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="contacto-digital__tabla__elemento-izquierdo">
+                    Ventas
+                  </td>
+                  <td>
+                    <a href="mailto:ventas@hermanosjota.com.ar">
+                      ventas@hermanosjota.com.ar
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="contacto-digital__tabla__elemento-izquierdo">
+                    Instagram
+                  </td>
+                  <td>
+                    <a
+                      href="https://www.instagram.com/hermanosjota_ba"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      @hermanosjota_ba
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="contacto-digital__tabla__elemento-izquierdo">
+                    WhatsApp
+                  </td>
+                  <td>
+                    <a
+                      href="https://wa.me/5491145678900"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      +54 11 4567-8900
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h1 class="contacto__titulo" id="contacto-ubicacion-titulo">
+            Nuestra Ubicación
+          </h1>
+          <div class="contacto__ubicacion">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.2170030862508!2d-58.40964451679717!3d-34.623956088796405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccae2a0c04a2f%3A0x77f381af8f0ca1fa!2sAv.%20San%20Juan%202847%2C%20C1232AAK%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1759593663815!5m2!1ses-419!2sar"
+              width="600"
+              height="450"
+              style={{ border: 0 }}
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
         </div>
       </main>
     </div>
