@@ -5,10 +5,10 @@ import '../styles/productDetail.css';
 export default function ProductDetail({ onAddToCart }) {
   const { id } = useParams(); // obtenemos el id de la URL
   const navigate = useNavigate();
-
   const [producto, setProducto] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -22,14 +22,26 @@ export default function ProductDetail({ onAddToCart }) {
       .finally(() => setLoading(false));
   }, [id]);
 
+
   if (loading) return <p>Cargando...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
   if (!producto) return null;
+  
+  const images = [`http://localhost:4000${producto.imagen}`, producto.imagenHover ? `http://localhost:4000${producto.imagenHover}` : null];
+
+  
 
   return (
       <div>
         <div className="detalle_producto">
-          <img src={`http://localhost:4000${producto.imagen}`} alt={producto.titulo} />
+          <div className="producto-img">
+            <img src={images[currentImage]} alt={producto.titulo} className="imagen-principal imagen-zoom"/>
+            <div className="miniaturas">
+                {images.map((img, idx) => (
+                <img key={idx} src={img} alt={`miniatura ${idx}`} className={`miniatura ${currentImage === idx ? "activo" : ""}`} onClick={() => setCurrentImage(idx)} />
+            ))}
+            </div>
+          </div>
           <div className="detalle_contenido">
             <h2>{producto.titulo}</h2>
             <p className="precio">${producto.Precio ?? "Consultar"}.-</p>
