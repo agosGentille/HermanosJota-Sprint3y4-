@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReCaptchaCheckbox from "./ReCaptchaCheckbox";
 
 // para el estado inicial se puede tomar los datos del localStorage
 
@@ -12,6 +13,7 @@ const initialErrors = {
   nombre: "",
   email: "",
   mensaje: "",
+  captcha: "",
 };
 
 const formularios = [];
@@ -21,6 +23,10 @@ export default function ContactForm() {
   const [errors, setErrors] = useState(initialErrors);
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [showCaptcha, setShowCaptcha] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState(null);
+
   const [touched, setTouched] = useState({
     nombre: false,
     email: false,
@@ -78,6 +84,7 @@ export default function ContactForm() {
       nombre: validateField("nombre", formData.nombre),
       email: validateField("email", formData.email),
       mensaje: validateField("mensaje", formData.mensaje),
+      captcha: "",
     };
 
     setErrors(newErrors);
@@ -123,6 +130,15 @@ export default function ContactForm() {
     }));
   };
 
+  const handleCaptchaVerify = (token) => {
+    console.log("ReCAPTCHA verificado, token:", token);
+    setCaptchaToken(token);
+    setErrors((prev) => ({
+      ...prev,
+      captcha: "",
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -130,10 +146,24 @@ export default function ContactForm() {
       return;
     }
 
+    if (!showCaptcha) {
+      setShowCaptcha(true);
+      return;
+    }
+
+    if (!captchaToken) {
+      setErrors((prev) => ({
+        ...prev,
+        captcha: "Por favor, complete el reCAPTCHA.",
+      }));
+      return;
+    }
+
     const cleanData = {
       nombre: formData.nombre.trim(),
       email: formData.email.trim().toLowerCase(),
       mensaje: formData.mensaje.trim(),
+      captchaToken: captchaToken,
     };
 
     console.log("Datos del formulario:", cleanData);
@@ -166,6 +196,8 @@ export default function ContactForm() {
         email: false,
         mensaje: false,
       });
+      setShowCaptcha(false);
+      setCaptchaToken(null);
     } catch (error) {
       console.error("Error al enviar el mensaje al servidor:", error);
 
@@ -290,6 +322,24 @@ export default function ContactForm() {
         </span>
       )}
 
+      {showCaptcha && (
+        <div style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+          <ReCaptchaCheckbox
+            siteKey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+            onVerify={handleCaptchaVerify}
+          />
+          {errors.captcha && (
+            <span
+              className="error-message"
+              role="alert"
+              style={{ display: "block", marginTop: "0.5rem" }}
+            >
+              ⚠️ {errors.captcha}
+            </span>
+          )}
+        </div>
+      )}
+
       <button
         type="submit"
         className="contacto__formulario__boton"
@@ -299,7 +349,9 @@ export default function ContactForm() {
           ? "Enviando..."
           : successMessage
           ? "Enviado"
-          : "Enviar Mensaje"}
+          : showCaptcha
+          ? "Enviar Mensaje"
+          : "Continuar"}
       </button>
 
       {successMessage && (
