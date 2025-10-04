@@ -1,112 +1,69 @@
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import '../styles/productDetail.css';
 
-.detalle_producto {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+export default function ProductDetail({ onAddToCart }) {
+  const { id } = useParams(); // obtenemos el id de la URL
+  const navigate = useNavigate();
+  const [producto, setProducto] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-.detalle_producto img {
-  width: 100%;
-  border-radius: 8px;
-  background-color: rgba(240, 230, 211, 0.8);
-}
+  useEffect(() => {
+    setLoading(true);
+     fetch(`http://localhost:4000/api/productos/${id}`)
+      .then(res => {
+        if (!res.ok) throw new Error("Producto no encontrado");
+        return res.json();
+      })
+      .then(data => setProducto(data))
+      .catch(err => setError(err.message))
+      .finally(() => setLoading(false));
+  }, [id]);
 
-.detalle_contenido {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
 
-.detalle_contenido h2 {
-  text-align: center;
-  font-size: 28px;
-  color: #a0522d;
-  font-family: "Playfair Display", sans-serif;
-}
+  if (loading) return <p>Cargando...</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (!producto) return null;
 
-.precio {
-  font-size: 2rem;
-  text-align: center;
-  color: #333;
-  font-family: "Playfair Display", sans-serif;
-}
+  return (
+      <div>
+        <div className="detalle_producto">
+          <img src={`http://localhost:4000${producto.imagen}`} alt={producto.titulo} className="imagen-zoom" />
+          <div className="detalle_contenido">
+            <h2>{producto.titulo}</h2>
+            <p className="precio">${producto.Precio ?? "Consultar"}.-</p>
+            <p>{producto.descripcion}</p>
 
-.detalle_info {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  background-color: rgba(240, 230, 211, 0.8);
-  padding: 15px;
-  border-radius: 8px;
-}
+            <div className="detalle_info">
+              {producto.medidas && <p><strong>Medidas:</strong> {producto.medidas}</p>}
+              {producto.materiales && <p><strong>Materiales:</strong> {producto.materiales}</p>}
+              {producto.acabado && <p><strong>Acabado:</strong> {producto.acabado}</p>}
+              {producto.peso && <p><strong>Peso:</strong> {producto.peso}</p>}
+              {producto.capacidad && <p><strong>Capacidad:</strong> {producto.capacidad}</p>}
+              {producto.tapizado && <p><strong>Tapizado:</strong> {producto.tapizado}</p>}
+              {producto.confort && <p><strong>Confort:</strong> {producto.confort}</p>}
+              {producto.almacenamiento && <p><strong>Almacenamiento:</strong> {producto.almacenamiento}</p>}
+              {producto.cables && <p><strong>Cables:</strong> {producto.cables}</p>}
+              {producto.extension && <p><strong>Extensión:</strong> {producto.extension}</p>}
+              {producto.carga_max && <p><strong>Carga máxima:</strong> {producto.carga_max}</p>}
+              {producto.caracteristicas && <p><strong>Características:</strong> {producto.caracteristicas}</p>}
+              {producto.regulacion && <p><strong>Regulación:</strong> {producto.regulacion}</p>}
+              {producto.certificacion && <p><strong>Certificación:</strong> {producto.certificacion}</p>}
+              {producto.apilables && <p><strong>Apilables:</strong> {producto.apilables}</p>}
+              {producto.rotacion && <p><strong>Rotación:</strong> {producto.rotacion}</p>}
+              {producto.garantia && <p><strong>Garantía:</strong> {producto.garantia}</p>}
+              {producto.estructura && <p><strong>Estructura:</strong> {producto.estructura}</p>}
+              {producto.sostenibilidad && <p><strong>Sostenibilidad:</strong> {producto.sostenibilidad}</p>}
+              {producto.colchon && <p><strong>Colchón:</strong> {producto.colchon}</p>}
+            </div>
 
-.detalle_info p strong {
-  color: #c47a6d;
-}
+            <button className="btn-agregarcarrito" onClick={() => onAddToCart(producto)}>
+              Añadir al carrito
+            </button>
+          </div>
+        </div>
+      </div>
+    );
 
-.btn-agregarcarrito {
-  padding: 15px 30px;
-  background-color: #c47a6d;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-agregarcarrito:hover {
-  background-color: #a0522d;
-}
-
-@media (min-width: 768px) {
-    .detalle_producto {
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 30px;
-        justify-content: center;
-        margin-top: 10vh;
-        margin-bottom: 15vh;
-    }
-
-    .detalle_producto img {
-        width: 50%;
-    }
-
-    .detalle_info {
-        width: 50%;
-    }
-
-    .detalle_producto h2 {
-        font-size: 28px;
-        text-align: left;
-    }
-
-    .btn-agregarcarrito {
-        width: auto;
-        padding: 20px 40px;
-    }
-}
-
-@media (min-width: 1024px) {
-    header {
-        height: 80px;
-    }
-
-    body {
-        padding-top: 80px;
-    }
-
-    .detalle_producto img {
-        width: 500px;
-    }
-
-    .detalle_producto {
-        margin-top: 10vh;
-        margin-bottom: 20vh;
-    }
-
-    .detalle_producto h2 {
-        font-size: 30px;
-    }
 }
