@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+/*
+Importar piezas de React Router:
+  BrowserRouter (alias Router) — maneja el history API del navegador (URLs "bonitas" sin # como antes con html).
+  Routes — contenedor de rutas (funciona como el Switch antiguo).
+  Route — define una ruta individual (path → componente).
+*/
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -59,6 +65,8 @@ function App() {
         {...carritoFunciones}
       />
       <Routes>
+        {/*Contiene las rutas declaradas. React Router evalúa cuál Route coincide con la 
+        URL actual y renderiza su element */}
         <Route path="/" element={<Home />} />
         <Route path="/carrito" element={
           <Carrito carrito={carrito} {...carritoFunciones} />

@@ -67,7 +67,7 @@ function Header({ toggleCarrito, carrito }) {
         )}
         <ul>
           <li><Link to="/">INICIO</Link></li>
-          <li><Link to="/">PRODUCTOS</Link></li>
+          <li><Link to="/productos">PRODUCTOS</Link></li>
           <li><Link to="/contacto">CONTACTO</Link></li>
         </ul>
       </nav>
