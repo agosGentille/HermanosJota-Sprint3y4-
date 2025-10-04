@@ -1,42 +1,56 @@
-// src/components/carritoFunciones.js
+import { guardarCarrito } from "./CarritoStorage";
 
-export const agregarProducto = (carrito, setCarrito, producto) => {
+// Calcular total
+export const calcularTotal = (carrito) =>
+  carrito.reduce((acc, p) => acc + (p.precio || p.Precio || 0) * p.cantidad, 0);
+
+// Agregar producto
+export const agregarProducto = async (carrito, setCarrito, producto) => {
   const existe = carrito.find(p => p.id === producto.id);
+  let nuevoCarrito;
+
   if (existe) {
-    setCarrito(
-      carrito.map(p =>
-        p.id === producto.id
-          ? { ...p, cantidad: p.cantidad + (producto.cantidad || 1) }
-          : p
-      )
+    nuevoCarrito = carrito.map(p =>
+      p.id === producto.id
+        ? { ...p, cantidad: p.cantidad + (producto.cantidad || 1) }
+        : p
     );
   } else {
-    setCarrito([...carrito, { ...producto, cantidad: producto.cantidad || 1 }]);
+    nuevoCarrito = [...carrito, { ...producto, cantidad: producto.cantidad || 1 }];
   }
+
+  setCarrito(nuevoCarrito);
+  await guardarCarrito(localStorage.getItem("emailUsuario"), nuevoCarrito);
 };
 
-export const eliminarProducto = (carrito, setCarrito, id) => {
-  setCarrito(carrito.filter(p => p.id !== id));
+// Eliminar producto
+export const eliminarProducto = async (carrito, setCarrito, id) => {
+  const nuevoCarrito = carrito.filter(p => p.id !== id);
+  setCarrito(nuevoCarrito);
+  await guardarCarrito(localStorage.getItem("emailUsuario"), nuevoCarrito);
 };
 
-export const vaciarCarrito = (setCarrito) => {
+// Vaciar carrito
+export const vaciarCarrito = async (setCarrito) => {
   setCarrito([]);
+  await guardarCarrito(localStorage.getItem("emailUsuario"), []);
 };
 
-export const sumarCantidad = (carrito, setCarrito, id) => {
-  setCarrito(
-    carrito.map(p => (p.id === id ? { ...p, cantidad: p.cantidad + 1 } : p))
+// Sumar cantidad
+export const sumarCantidad = async (carrito, setCarrito, id) => {
+  const nuevoCarrito = carrito.map(p =>
+    p.id === id ? { ...p, cantidad: p.cantidad + 1 } : p
   );
+  setCarrito(nuevoCarrito);
+  await guardarCarrito(localStorage.getItem("emailUsuario"), nuevoCarrito);
 };
 
-export const restarCantidad = (carrito, setCarrito, id) => {
-  setCarrito(
-    carrito.map(p =>
-      p.id === id ? { ...p, cantidad: p.cantidad > 1 ? p.cantidad - 1 : 1 } : p
-    )
+// Restar cantidad
+export const restarCantidad = async (carrito, setCarrito, id) => {
+  const nuevoCarrito = carrito.map(p =>
+    p.id === id ? { ...p, cantidad: p.cantidad > 1 ? p.cantidad - 1 : 1 } : p
   );
+  setCarrito(nuevoCarrito);
+  await guardarCarrito(localStorage.getItem("emailUsuario"), nuevoCarrito);
 };
 
-export const calcularTotal = (carrito) => {
-  return carrito.reduce((acc, p) => acc + (p.Precio || 0) * p.cantidad, 0);
-};

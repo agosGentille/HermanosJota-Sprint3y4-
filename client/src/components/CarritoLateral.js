@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/CarritoLateral.css";
+import CarritoCantidad from "./CarritoCantidad";
 
 function CarritoLateral({
   isAbierto,
@@ -30,7 +31,7 @@ function CarritoLateral({
                 <h4>{producto.titulo}</h4>
                 <div className="carrito-controles">
                   <button onClick={() => restarCantidad(producto.id)}>-</button>
-                  <span>{producto.cantidad}</span>
+                  <CarritoCantidad cantidad={producto.cantidad} />
                   <button onClick={() => sumarCantidad(producto.id)}>+</button>
                 </div>
                 <p>${producto.Precio * producto.cantidad}</p>

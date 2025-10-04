@@ -1,19 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Carrito.css";
-
+import CarritoCantidad from "../components/CarritoCantidad";
+import { calcularTotal } from "../components/CarritoFunciones";
+import caja from "../images/caja.svg";
 const Carrito = ({
   carrito,
   sumarCantidad,
   restarCantidad,
   eliminarProducto,
   vaciarCarrito,
-  total
 }) => {
+  const [nota, setNota] = useState("");
+  const [procesandoCompra, setProcesandoCompra] = useState(false);
+  const [compraFinalizada, setCompraFinalizada] = useState(false);
+
+  const total = calcularTotal(carrito);
+
+  const handleComprar = async () => {
+  setProcesandoCompra(true);
+
+  setTimeout(async () => {
+    setProcesandoCompra(false);
+    setCompraFinalizada(true);
+    await vaciarCarrito(); 
+  }, 4000);
+};
+
   return (
     <main className="contenedor__carrito">
       <h2 className="titulo__principal">Carrito de Compras</h2>
 
-      {carrito.length === 0 ? (
+      {/* Mostrar mientras se procesa la compra */}
+      {procesandoCompra ? (
+        <div className="procesando-compra">
+          <h2>Procesando compra...</h2>
+          <div className="barra-carga">
+            <div className="progreso"></div>
+          </div>
+        </div>
+      ) : compraFinalizada ? (
+        <div className="compra-finalizada">
+          <img src={caja} alt="Caja" className="icono-caja" />
+          <h2>¡Gracias por tu compra 🎉!</h2>
+          <p>Estamos preparando tu envío 📦</p>
+        </div>
+      ) : carrito.length === 0 ? (
         <p className="carrito-vacio">Tu carrito está vacío 😞</p>
       ) : (
         <>
@@ -25,10 +56,11 @@ const Carrito = ({
                 <th>Cantidad</th>
                 <th>Precio</th>
                 <th>Subtotal</th>
+                <th>Eliminar</th>
               </tr>
             </thead>
             <tbody>
-              {carrito.map(producto => (
+              {carrito.map((producto) => (
                 <tr key={producto.id}>
                   <td>
                     <img
@@ -41,7 +73,7 @@ const Carrito = ({
                   <td>
                     <div className="cantidad-botones">
                       <button onClick={() => restarCantidad(producto.id)}>−</button>
-                      <span>{producto.cantidad}</span>
+                      <CarritoCantidad cantidad={producto.cantidad} />
                       <button onClick={() => sumarCantidad(producto.id)}>+</button>
                     </div>
                   </td>
@@ -60,7 +92,19 @@ const Carrito = ({
             </tbody>
           </table>
 
-          <div id="carrito-acciones">
+          {/* Nota de pedido */}
+          <div className="nota-pedido" style={{ marginTop: "1.5rem" }}>
+            <textarea
+              value={nota}
+              onChange={(e) => setNota(e.target.value)}
+              placeholder=" "
+              rows={3}
+            />
+            <label>Agregar una nota al pedido</label>
+          </div>
+
+          {/* Acciones del carrito */}
+          <div id="carrito-acciones" style={{ marginTop: "1.5rem" }}>
             <div className="carrito-acciones-total">
               <p>Total:</p>
               <p>${total}</p>
@@ -69,8 +113,12 @@ const Carrito = ({
             <button className="carrito-acciones-vaciar" onClick={vaciarCarrito}>
               Vaciar Carrito
             </button>
-            <button className="carrito-acciones-comprar" onClick={vaciarCarrito}>
-              Comprar Ahora
+            <button
+              className="carrito-acciones-comprar"
+              onClick={handleComprar}
+              disabled={procesandoCompra}
+            >
+              {procesandoCompra ? "Procesando..." : "Comprar Ahora"}
             </button>
           </div>
         </>

@@ -42,6 +42,16 @@ function Header({ toggleCarrito, carrito }) {
     }
   };
 
+  const [bounce, setBounce] = useState(false);
+
+  useEffect(() => {
+    if (carrito.length > 0) {
+      setBounce(true);
+      const timeout = setTimeout(() => setBounce(false), 300); // dura 0.3s
+      return () => clearTimeout(timeout);
+    }
+  }, [carrito]);
+
   return (
     <header className='header-sticky'>
       <div className="header-marca">
@@ -91,7 +101,7 @@ function Header({ toggleCarrito, carrito }) {
           <span className="header-carrito material-symbols-outlined" title="Carrito">
             shopping_bag
           </span>
-          <span className="numerito">{carrito.length}</span>
+          <span className={`numerito ${bounce ? 'bounce' : ''}`}>{carrito.length}</span>
         </div>
 
         {/* Menú hamburguesa para móvil */}
