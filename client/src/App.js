@@ -14,6 +14,7 @@ import Contacto from './pages/Contacto';
 import Carrito from './pages/Carrito';
 import CarritoLateral from './components/CarritoLateral';
 import { cargarCarrito, guardarCarrito } from './components/CarritoStorage';
+import Producto from './pages/Productos';
 import { agregarProducto, eliminarProducto, vaciarCarrito, sumarCantidad, restarCantidad, calcularTotal } from './components/CarritoFunciones';
 
 function App() {
@@ -67,13 +68,14 @@ function App() {
       <Routes>
         {/*Contiene las rutas declaradas. React Router evalúa cuál Route coincide con la 
         URL actual y renderiza su element */}
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home onAddToCart={carritoFunciones.agregarProducto} />} />
         <Route path="/carrito" element={
           <Carrito carrito={carrito} {...carritoFunciones} />
         } />
+        <Route path="/productos" element={<Producto onAddToCart={carritoFunciones.agregarProducto} />} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/ProductDetail/:id" element={
-          <ProductDetail agregarProducto={carritoFunciones.agregarProducto} />
+          <ProductDetail onAddToCart={carritoFunciones.agregarProducto} />
         } />
       </Routes>
       <Footer />
