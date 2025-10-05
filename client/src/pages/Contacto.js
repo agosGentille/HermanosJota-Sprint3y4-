@@ -5,9 +5,9 @@ import ContactForm from "../components/ContactForm";
 function App() {
   return (
     <div>
-      <main class="principal">
-        <h1 class="contacto__titulo">Nuestra Historia</h1>
-        <div class="nuestra-historia">
+      <main className="principal">
+        <h1 className="contacto__titulo">Nuestra Historia</h1>
+        <div className="nuestra-historia">
           <p className="nuestra-historia__texto">
             En{" "}
             <span className="nuestra-historia__texto__resaltar">
@@ -75,7 +75,7 @@ function App() {
           </p>
 
           <br />
-          <h2 class="nuestra-historia__texto__subtitulo">
+          <h2 className="nuestra-historia__texto__subtitulo">
             Video Institucional - Hermanos Jota
           </h2>
           <video poster="Images/logo.svg" preload="metadata" controls>
@@ -92,22 +92,22 @@ function App() {
           </video>
         </div>
 
-        <h1 class="contacto__titulo" id="contacto-form">
+        <h1 className="contacto__titulo" id="contacto-form">
           Haga una pregunta
         </h1>
-        <div class="contacto">
+        <div className="contacto">
           <ContactForm />
         </div>
 
-        <div class="contacto__container">
-          <h1 class="contacto__titulo" id="contacto-digital-titulo">
+        <div className="contacto__container">
+          <h1 className="contacto__titulo" id="contacto-digital-titulo">
             Contacto Digital
           </h1>
-          <div class="contacto-digital">
-            <table class="contacto-digital__tabla">
+          <div className="contacto-digital">
+            <table className="contacto-digital__tabla">
               <tbody>
                 <tr>
-                  <td class="contacto-digital__tabla__elemento-izquierdo">
+                  <td className="contacto-digital__tabla__elemento-izquierdo">
                     Email general
                   </td>
                   <td>
@@ -117,7 +117,7 @@ function App() {
                   </td>
                 </tr>
                 <tr>
-                  <td class="contacto-digital__tabla__elemento-izquierdo">
+                  <td className="contacto-digital__tabla__elemento-izquierdo">
                     Ventas
                   </td>
                   <td>
@@ -127,7 +127,7 @@ function App() {
                   </td>
                 </tr>
                 <tr>
-                  <td class="contacto-digital__tabla__elemento-izquierdo">
+                  <td className="contacto-digital__tabla__elemento-izquierdo">
                     Instagram
                   </td>
                   <td>
@@ -141,7 +141,7 @@ function App() {
                   </td>
                 </tr>
                 <tr>
-                  <td class="contacto-digital__tabla__elemento-izquierdo">
+                  <td className="contacto-digital__tabla__elemento-izquierdo">
                     WhatsApp
                   </td>
                   <td>
@@ -158,18 +158,18 @@ function App() {
             </table>
           </div>
 
-          <h1 class="contacto__titulo" id="contacto-ubicacion-titulo">
+          <h1 className="contacto__titulo" id="contacto-ubicacion-titulo">
             Nuestra Ubicación
           </h1>
-          <div class="contacto__ubicacion">
+          <div className="contacto__ubicacion">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.2170030862508!2d-58.40964451679717!3d-34.623956088796405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccae2a0c04a2f%3A0x77f381af8f0ca1fa!2sAv.%20San%20Juan%202847%2C%20C1232AAK%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1759593663815!5m2!1ses-419!2sar"
-              width="600"
-              height="450"
+              width="100%"
+              height="100%"
               style={{ border: 0 }}
-              allowfullscreen=""
+              allowFullScreen=""
               loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
+              referrerPolicy="no-referrer-when-downgrade"
               title="Ubicación de Hermanos Jota en Google Maps"
             ></iframe>
           </div>

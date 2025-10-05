@@ -23,6 +23,7 @@ export default function ContactForm() {
   const [errors, setErrors] = useState(initialErrors);
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
 
   const [showCaptcha, setShowCaptcha] = useState(false);
   const [captchaToken, setCaptchaToken] = useState(null);
@@ -168,7 +169,6 @@ export default function ContactForm() {
 
     console.log("Datos del formulario:", cleanData);
 
-    // espacio para la conexion con el backend
     setIsSubmitting(true);
     try {
       const response = await fetch("/api/contacto", {
@@ -188,16 +188,20 @@ export default function ContactForm() {
       console.log("Mensaje enviado al servidor correctamente:", data);
 
       setSuccessMessage("¡Mensaje enviado con éxito!");
-      formularios.push(formData);
-      setFormData(initialState);
-      setErrors(initialErrors);
-      setTouched({
-        nombre: false,
-        email: false,
-        mensaje: false,
-      });
-      setShowCaptcha(false);
-      setCaptchaToken(null);
+      setIsResetting(true);
+      setTimeout(() => {
+        formularios.push(formData);
+        setFormData(initialState);
+        setErrors(initialErrors);
+        setTouched({
+          nombre: false,
+          email: false,
+          mensaje: false,
+        });
+        setShowCaptcha(false);
+        setCaptchaToken(null);
+        setIsResetting(false);
+      }, 400);
     } catch (error) {
       console.error("Error al enviar el mensaje al servidor:", error);
 
@@ -222,7 +226,9 @@ export default function ContactForm() {
     <form
       aria-label="contact-form"
       onSubmit={handleSubmit}
-      className="contacto__formulario"
+      className={
+        "contacto__formulario" + (isResetting ? " fade-out" : " fade-in")
+      }
       noValidate
     >
       <label htmlFor="nombre" className="contacto__formulario__label">
