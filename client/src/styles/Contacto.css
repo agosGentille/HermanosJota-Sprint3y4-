@@ -41,8 +41,11 @@ main {
   display: block;
   position: relative;
   z-index: 1;
-  margin-top: clamp(80px, 10vh, 120px);
   padding: 1rem;
+}
+
+.principal {
+  margin-top: clamp(100px, 10vh, 150px);
 }
 
 section {
