@@ -305,7 +305,7 @@ const productos = [
     imagen: "/images/Catalogo/Sofá-Patagonia.png",
     imagenHover: "/images/Catalogo-Hover/Sofá-Patagonia.png",
     descripcion: "Sofá de tres cuerpos tapizado en lino Warm Alabaster con patas cónicas de madera. Los cojines combinan espuma de alta resiliencia con plumón reciclado, ofreciendo comodidad duradera y sostenible para el hogar moderno.",
-    Precio: 542,
+    Precio: 10000,
     medidas: "220 × 90 × 80 cm",
     materiales: null,
     acabado: null,
