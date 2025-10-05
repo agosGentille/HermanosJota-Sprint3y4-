@@ -4,11 +4,25 @@
 
 ## Grupo 11 - Code Breakers
 
-- Fabrizio, Jazmin Maia
-- Gentille, Agostina Abril
-- Giménez, Agustín José
-- Insaurralde, Mariano Gastón
-- Vila, Juan Manuel
+- **Fabrizio, Jazmin Maia** - ProductDetail (Frontend + Backend)
+- **Gentille, Agostina Abril** - Home + Header + Footer (Frontend + Backend)
+- **Giménez, Agustín José** - Carrito Lateral y Carrito (Frontend + Backend)
+- **Insaurralde, Mariano Gastón** - Contacto (Frontend + Backend)
+- **Vila, Juan Manuel** - Pantalla Productos (Frontend + Backend)
+
+---
+
+## División de Tareas
+
+Cada miembro del equipo continuó con la misma división de responsabilidades que en el trabajo práctico anterior, desarrollando tanto la parte frontend como backend de sus secciones asignadas:
+
+- **Jazmin Fabrizio**: Se encargó del componente ProductDetail, implementando la vista detallada de productos y la conexión con el backend correspondiente.
+- **Agostina Gentille**: Desarrolló la página Home, Header y Footer, asegurando la navegación principal y la estructura base de la aplicación.
+- **Agustín Giménez**: Implementó el Carrito Lateral y la página completa del Carrito, gestionando el estado global del carrito de compras.
+- **Mariano Insaurralde**: Creó la página de Contacto con formularios funcionales y validaciones.
+- **Juan Manuel Vila**: Desarrolló la pantalla de Productos con sistema de filtros, búsqueda y catálogo completo.
+
+Cada integrante realizó tanto el desarrollo frontend (componentes React, estilos, estado) como las partes backend necesarias (rutas, controladores, lógica de negocio) para sus secciones asignadas.
 
 ---
 
@@ -43,13 +57,15 @@ El sitio incluye:
 ### Frontend
 - **React** → Arquitectura de componentes, hooks (`useState`, `useEffect`), props y manejo de estado.
 - **CSS3 (Flexbox + Responsive)** → Estilos responsivos y maquetación moderna.
-- **React Router (Opcional)** → Para rutas de detalle de productos (si se decide usar más adelante).
+- **React Router** → Navegación entre páginas y rutas dinámicas.
 - **Fetch API** → Comunicación con el backend.
+
 ### Backend
 - **Node.js** → Servidor y entorno de ejecución.
 - **Express.js** → Creación de la API REST, rutas modulares y middlewares.
 - **Middlewares Personalizados** → Logging de peticiones y manejo de errores.
 - **Datos Locales** → Array de productos en archivo `.js` como fuente de datos inicial.
+
 ### Control de Versiones
 - **Git & GitHub** → Repositorio único tipo monorepo con carpetas `/client` y `/backend`.
 
@@ -92,3 +108,51 @@ cd client
 npm install
 npm start
 ```
+
+
+---
+
+## Características Destacadas por Sección
+
+### 🏠 Home (Agostina Gentille)
+- Carrusel principal con imágenes destacadas
+- Sección de Best Sellers
+- Inspiraciones de diseño
+- Acabados naturales
+- Componente reutilizable de tarjetas de productos
+
+### 🛍️ Productos (Juan Manuel Vila)
+- Catálogo completo de productos
+- Sistema de filtros por categoría, precio y certificación
+- Búsqueda en tiempo real
+- Ordenamiento múltiple
+- Diseño responsive
+
+### 📦 ProductDetail (Jazmin Fabrizio)
+- Vista detallada de productos
+- Galería de imágenes
+- Información técnica completa
+- Integración con carrito de compras
+
+### 🛒 Carrito (Agustín Giménez)
+- Carrito lateral deslizante
+- Página completa del carrito
+- Gestión de cantidades
+- Cálculo de totales
+- Persistencia en localStorage
+
+### 📞 Contacto (Mariano Insaurralde)
+- Formulario de contacto completo
+- Validaciones de campos
+- Validación con ReCaptcha
+- Experiencia de usuario mejorada
+- Integración con backend
+- Integración de un mapa de Google Maps
+
+---
+
+## Estado del Proyecto
+
+✅ **Completado** - Todas las funcionalidades básicas implementadas  
+🚀 **En producción** - Listo para uso y testing  
+🔧 **Mejoras continuas** - Optimizaciones y nuevas features en desarrollo
