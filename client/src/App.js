@@ -15,6 +15,7 @@ import Carrito from './pages/Carrito';
 import CarritoLateral from './components/CarritoLateral';
 import { cargarCarrito, guardarCarrito } from './components/CarritoStorage';
 import { agregarProducto, eliminarProducto, vaciarCarrito, sumarCantidad, restarCantidad, calcularTotal } from './components/CarritoFunciones';
+import Producto from './pages/Productos';
 
 function App() {
   const [isCarritoAbierto, setIsCarritoAbierto] = useState(false);
@@ -71,6 +72,7 @@ function App() {
         <Route path="/carrito" element={
           <Carrito carrito={carrito} {...carritoFunciones} />
         } />
+        <Route path="/productos" element={<Producto/>} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/ProductDetail/:id" element={
           <ProductDetail agregarProducto={carritoFunciones.agregarProducto} />
