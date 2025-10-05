@@ -1,19 +1,24 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/StyleProductos.css";
+import { Link } from "react-router-dom";
 
-function Productos() {
+
+function Productos({onAddToCart}) {
+  // Estados principales
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  // Estados para filtros
   const [filtro, setFiltro] = useState("");
-  const [ordenamiento, setOrdenamiento] = useState("titulo");
-  const [favoritos, setFavoritos] = useState([]);
+  const [ordenamiento, setOrdenamiento] = useState("tituloAsc");
   const [categoriaSeleccionadas, setCategoriaSeleccionadas] = useState([]);
   const [precioSeleccionado, setPrecioSeleccionado] = useState("");
-  const [precioMin, setPrecioMin] = useState("");
-  const [precioMax, setPrecioMax] = useState("");
   const [certificadoSeleccionado, setCertificadoSeleccionado] = useState(false);
+  const [garantiaSeleccionada, setGarantiaSeleccionada] = useState(false);
+  const [mostrarFiltros, setMostrarFiltros] = useState(false);
 
+  /* Carga inicial de productos */
   useEffect(() => {
     fetch("http://localhost:4000/api/productos")
       .then((res) => {
@@ -30,13 +35,6 @@ function Productos() {
         }));
 
         setProductos(productosConUrl);
-
-        // 🔹 restaurar favoritos válidos
-        const favsGuardados = JSON.parse(localStorage.getItem("favoritos")) || [];
-        const idsValidos = productosConUrl.map((p) => p.id);
-        const favsFiltrados = favsGuardados.filter((fav) => idsValidos.includes(fav));
-        setFavoritos(favsFiltrados);
-
         setLoading(false);
       })
       .catch((err) => {
@@ -46,6 +44,7 @@ function Productos() {
       });
   }, []);
 
+  // Estados de carga o error
   if (loading)
     return (
       <main>
@@ -64,66 +63,64 @@ function Productos() {
       </main>
     );
 
-const precios = productos.map(p => p.Precio);
-const precioPromedio = precios.reduce((acc, p) => acc + p, 0) / precios.length;
+    // Cálculo de límites de precio para colocar en el filtro de precios
+  const precios = productos.map((p) => p.Precio);
+  const precioPromedio = precios.reduce((acc, p) => acc + p, 0) / precios.length;
 
-// Definí límites usando el promedio
-const limiteBajo = Math.round(precioPromedio * 0.8);  // 20% menos que el promedio
-const limiteAlto = Math.round(precioPromedio * 1.2);   // 20% más que el promedio
-const aplicarRangoPersonalizado = () => {
-  setPrecioSeleccionado("personalizado");
-};
+  const limiteBajo = Math.round(precioPromedio * 0.8);
+  const limiteAlto = Math.round(precioPromedio * 1.2);
 
-  /* 🔹 Filtrado combinado */
+
+  //Creo las categorias de acuerdo a los productos que hay en catalogo en el momento
+  const categoriasProductos = Array.from(
+    new Set(
+      productos.map((p) => p.titulo?.trim().split(" ")[0].toLowerCase())
+    )
+  );
+
+  // Filtro combinado
   const productosFiltrados = productos.filter((p) => {
-    const coincideBusqueda = p.titulo.toLowerCase().includes(filtro.toLowerCase());
+    const coincideBusqueda = p.titulo
+      .toLowerCase()
+      .includes(filtro.toLowerCase());
 
-    // 🔹 Categorías
+    // Categoría (primer palabra del título)
     const categoria = p.titulo.trim().split(" ")[0].toLowerCase();
     const coincideCategoria =
-      categoriaSeleccionadas.length === 0 || categoriaSeleccionadas.includes(categoria);
+      categoriaSeleccionadas.length === 0 ||
+      categoriaSeleccionadas.includes(categoria);
 
-    // 🔹 Precio
+    // Precio
     let coincidePrecio = true;
     if (precioSeleccionado === "menor") coincidePrecio = p.Precio < limiteBajo;
-    else if (precioSeleccionado === "menoryMayor") coincidePrecio = p.Precio >= limiteBajo && p.Precio <= limiteAlto;
+    else if (precioSeleccionado === "menoryMayor")
+      coincidePrecio = p.Precio >= limiteBajo && p.Precio <= limiteAlto;
     else if (precioSeleccionado === "mayor") coincidePrecio = p.Precio > limiteAlto;
+      
+    // Certificación / Garantía
+    const coincideCertificado =
+      !certificadoSeleccionado || p.certificacion !== null;
+    const coincideGarantia =
+      !garantiaSeleccionada || p.garantia !== null;
 
-    if (precioSeleccionado === "personalizado") {
-    coincidePrecio =
-      (!precioMin || p.Precio >= precioMin) &&
-      (!precioMax || p.Precio <= precioMax);
-  }
-
-    const coincideCertificado = !certificadoSeleccionado || p.certificacion !== null;
-
-
-
-    return coincideBusqueda && coincideCategoria && coincidePrecio && coincideCertificado;
+    return (
+      coincideBusqueda &&
+      coincideCategoria &&
+      coincidePrecio &&
+      coincideCertificado &&
+      coincideGarantia
+    );
   });
 
-  /* 🔹 Categorías dinámicas */
-  const categoriasProductos = Array.from(
-    new Set(productos.map((p) => p.titulo?.trim().split(" ")[0].toLowerCase()))
-  );
+
+  //manejo de filtros
   const limpiarFiltros = () => {
-  setFiltro("");
-  setCategoriaSeleccionadas([]);
-  setPrecioSeleccionado("");
-  setPrecioMin("");
-  setPrecioMax("");
-  setCertificadoSeleccionado(false);
-};
-
-
-  const toggleFavorito = (idProd) => {
-    if (favoritos.includes(idProd)) {
-      setFavoritos(favoritos.filter((fav) => fav !== idProd));
-    } else {
-      setFavoritos([...favoritos, idProd]);
-    }
+    setFiltro("");
+    setCategoriaSeleccionadas([]);
+    setPrecioSeleccionado("");
+    setCertificadoSeleccionado(false);
+    setGarantiaSeleccionada(false);
   };
-
 
   const handleCategoriaChange = (e) => {
     const nombre = e.target.value;
@@ -136,6 +133,8 @@ const aplicarRangoPersonalizado = () => {
   const handlePrecioChange = (e) => {
     setPrecioSeleccionado(e.target.value);
   };
+
+  //Ordenamiento
 
   const productosOrdenados = [...productosFiltrados].sort((a, b) => {
     switch (ordenamiento) {
@@ -152,11 +151,24 @@ const aplicarRangoPersonalizado = () => {
     }
   });
 
+  //Render principal
   return (
     <main className="productos-container">
-      <aside className="filtros">
+      {/* Botón para mostrar/ocultar filtros en mobile */}
+      <button
+        className="btn-toggle-filtros"
+        onClick={() => setMostrarFiltros(!mostrarFiltros)}
+      >
+        {mostrarFiltros ? "Ocultar filtros ▲" : "Mostrar filtros ▼"}
+      </button>
+      <aside
+        className={`filtros ${
+          mostrarFiltros ? "mostrar-filtros" : "ocultar-filtros"
+        }`}
+      >
         <h2>Filtros</h2>
 
+        {/* Filtro: Categoría */}
         <div className="filtro-seccion">
           <h3>Categoría</h3>
           <ul>
@@ -165,7 +177,6 @@ const aplicarRangoPersonalizado = () => {
                 <input
                   type="checkbox"
                   id={`cat-${i}`}
-                  name="categoria"
                   value={cat}
                   onChange={handleCategoriaChange}
                   checked={categoriaSeleccionadas.includes(cat)}
@@ -175,6 +186,8 @@ const aplicarRangoPersonalizado = () => {
             ))}
           </ul>
         </div>
+
+        {/* Filtro: Certificación */}
         <div className="filtro-seccion">
           <h3>Certificado</h3>
           <label>
@@ -183,9 +196,24 @@ const aplicarRangoPersonalizado = () => {
               checked={certificadoSeleccionado}
               onChange={(e) => setCertificadoSeleccionado(e.target.checked)}
             />
-            Posee certificacion
+            Posee certificación
           </label>
         </div>
+
+        {/* Filtro: Garantía */}
+        <div className="filtro-seccion">
+          <h3>Garantía</h3>
+          <label>
+            <input
+              type="checkbox"
+              checked={garantiaSeleccionada}
+              onChange={(e) => setGarantiaSeleccionada(e.target.checked)}
+            />
+            Posee garantía
+          </label>
+        </div>
+
+        {/* Filtro: Precio */}
         <div className="filtro-seccion">
           <h3>Precio</h3>
           <ul>
@@ -206,8 +234,9 @@ const aplicarRangoPersonalizado = () => {
                 value="menoryMayor"
                 checked={precioSeleccionado === "menoryMayor"}
                 onChange={handlePrecioChange}
-              />{" "}
-              ${limiteBajo.toLocaleString("es-AR")} a ${limiteAlto.toLocaleString("es-AR")}
+              />
+              ${limiteBajo.toLocaleString("es-AR")} a{" "}
+              ${limiteAlto.toLocaleString("es-AR")}
             </li>
             <li>
               <input
@@ -216,34 +245,18 @@ const aplicarRangoPersonalizado = () => {
                 value="mayor"
                 checked={precioSeleccionado === "mayor"}
                 onChange={handlePrecioChange}
-              />{" "}
-              Mas de ${limiteAlto.toLocaleString("es-AR")}
+              />
+              Más de ${limiteAlto.toLocaleString("es-AR")}
             </li>
           </ul>
-          <div className="filtro-rango">
-          <label>Rango personalizado: </label>
-          <div className="inputs-rango">
-            <input
-              type="text"
-              placeholder="Mínimo"
-              value={precioMin || ""}
-              onChange={(e) => setPrecioMin(Number(e.target.value))}
-            />
-            <span> - </span>
-            <input
-              type="text"
-              placeholder="Máximo"
-              value={precioMax || ""}
-              onChange={(e) => setPrecioMax(Number(e.target.value))}
-            />
-          </div>
-        </div>
+
           <button className="btn-limpiar" onClick={limpiarFiltros}>
-          Limpiar filtros
-        </button>
+            Limpiar filtros
+          </button>
         </div>
       </aside>
 
+      {/* Catálogo de productos */}
       <section className="catalogo">
         <div className="catalogo-header">
           <input
@@ -257,7 +270,6 @@ const aplicarRangoPersonalizado = () => {
             <label htmlFor="orden">Ordenar por: </label>
             <select
               id="orden"
-              name="orden"
               value={ordenamiento}
               onChange={(e) => setOrdenamiento(e.target.value)}
             >
@@ -269,17 +281,10 @@ const aplicarRangoPersonalizado = () => {
           </div>
         </div>
 
+        {/* Tarjetas */}
         <div className="contenedor-tarjetas">
           {productosOrdenados.length === 0 ? (
-            <p
-              style={{
-                gridColumn: "1 / -1",
-                textAlign: "center",
-                color: "#c47a6d",
-              }}
-            >
-              No se encontraron productos
-            </p>
+            <p className="mensaje-vacio">No se encontraron productos</p>
           ) : (
             productosOrdenados.map((prod, index) => (
               <div
@@ -287,49 +292,43 @@ const aplicarRangoPersonalizado = () => {
                 className="tarjeta-producto mostrar"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
+                
                 <div className="fondo-tarjeta">
+                  <Link to={`/ProductDetail/${prod.id}`} className="link-producto">
                   <div className="info-producto">
+                    
                     <h3>{prod.titulo}</h3>
+
+
                   </div>
 
-                  <div className="tarjeta-foto">
-                    <img
-                      src={prod.imagen}
-                      alt={prod.titulo}
-                      className="img-normal"
-                    />
-                    <img
-                      src={prod.imagenHover}
-                      alt={prod.titulo}
-                      className="img-hover"
-                    />
-                  </div>
+                    <div className="tarjeta-foto">
+                      <img
+                        src={prod.imagen}
+                        alt={prod.titulo}
+                        className="img-normal"
+                      />
+                      <img
+                        src={prod.imagenHover}
+                        alt={prod.titulo}
+                        className="img-hover"
+                      />
+                    </div>
 
                   <div className="info-producto">
                     <p>${prod.Precio.toLocaleString("es-AR")}</p>
                   </div>
-
-                  <button
-                    className={`btn-favorito ${
-                      favoritos.includes(prod.id) ? "activo" : ""
-                    }`}
-                    onClick={() => toggleFavorito(prod.id)}
-                  >
-                    {favoritos.includes(prod.id)
-                      ? "🤎 Quitar favorito"
-                      : "🤍 Agregar a favoritos"}
-                  </button>
+                  </Link>
 
                   <button
                     className="btn-agregarcarrito"
                     type="button"
-                    data-id={prod.id}
+                    onClick={() => onAddToCart(prod)}
                   >
                     <span className="material-symbols-outlined icono-comprar">
                       shopping_bag
                     </span>
-                    <span className="sep">|</span>
-                    Comprar
+                    <span className="sep">|</span> Comprar
                   </button>
                 </div>
               </div>
