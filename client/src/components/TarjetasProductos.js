@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/TarjetaProd.css'; 
+import '../styles/TarjetaProd.css';
 
-function TarjetasProductos({ productos, mostrarMax}) {
+function TarjetasProductos({ productos, mostrarMax, onAddToCart }) {
   const [mostrar, setMostrar] = useState(false);
 
   useEffect(() => {
@@ -15,30 +15,33 @@ function TarjetasProductos({ productos, mostrarMax}) {
 
   const lista = mostrarMax ? productos.slice(0, mostrarMax) : productos;
 
-
   return (
     <>
       {lista.map((producto) => (
-        <div className={`tarjeta-producto ${mostrar ? 'mostrar' : ''}`}>
+        <div key={producto.id} className={`tarjeta-producto ${mostrar ? 'mostrar' : ''}`}>
           <div className="fondo-tarjeta">
             <div className='info-producto'>
-              <Link key={producto.id} to={`/ProductDetail/${producto.id}`}>
+              <Link to={`/ProductDetail/${producto.id}`}>
                 <h3>{producto.titulo}</h3>
                 <div className="tarjeta-foto">
-                    <img src={producto.imagen} alt={producto.titulo} className="img-normal" />
-                    <img src={producto.imagenHover} alt={producto.titulo} className="img-hover" />
+                  <img src={producto.imagen} alt={producto.titulo} className="img-normal" />
+                  <img src={producto.imagenHover} alt={producto.titulo} className="img-hover" />
                 </div>
                 <p>${producto.Precio.toLocaleString('es-AR')}</p>
-            </Link>
-
+              </Link>
             </div>
-              <div className="btnAgregarCarrito">
-                <span className="material-symbols-outlined">shopping_bag</span>
-                <span> | Comprar </span>
-              </div> 
+
+            <div
+              className="btnAgregarCarrito"
+              onClick={() => onAddToCart(producto)}
+              style={{ cursor: "pointer" }}
+            >
+              <span className="material-symbols-outlined">shopping_bag</span>
+              <span> | Comprar </span>
+            </div>
           </div>
         </div>
-          ))}
+      ))}
     </>
   );
 }

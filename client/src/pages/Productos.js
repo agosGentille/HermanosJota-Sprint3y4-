@@ -1,7 +1,8 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect} from "react";
 import "../styles/StyleProductos.css";
+import { Link } from "react-router-dom";
 
-function Productos() {
+function Productos({ onAddToCart }) {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -287,27 +288,33 @@ const aplicarRangoPersonalizado = () => {
                 className="tarjeta-producto mostrar"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
+                
                 <div className="fondo-tarjeta">
-                  <div className="info-producto">
-                    <h3>{prod.titulo}</h3>
-                  </div>
+                    <Link 
+                    to={`/ProductDetail/${prod.id}`}
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <div className="info-producto">
+                      <h3>{prod.titulo}</h3>
+                    </div>
 
-                  <div className="tarjeta-foto">
-                    <img
-                      src={prod.imagen}
-                      alt={prod.titulo}
-                      className="img-normal"
-                    />
-                    <img
-                      src={prod.imagenHover}
-                      alt={prod.titulo}
-                      className="img-hover"
-                    />
-                  </div>
+                    <div className="tarjeta-foto">
+                      <img
+                        src={prod.imagen}
+                        alt={prod.titulo}
+                        className="img-normal"
+                      />
+                      <img
+                        src={prod.imagenHover}
+                        alt={prod.titulo}
+                        className="img-hover"
+                      />
+                    </div>
 
-                  <div className="info-producto">
-                    <p>${prod.Precio.toLocaleString("es-AR")}</p>
-                  </div>
+                    <div className="info-producto">
+                      <p>${prod.Precio.toLocaleString("es-AR")}</p>
+                    </div>
+                  </Link>
 
                   <button
                     className={`btn-favorito ${
@@ -323,7 +330,7 @@ const aplicarRangoPersonalizado = () => {
                   <button
                     className="btn-agregarcarrito"
                     type="button"
-                    data-id={prod.id}
+                     onClick={() => onAddToCart(prod)}
                   >
                     <span className="material-symbols-outlined icono-comprar">
                       shopping_bag
