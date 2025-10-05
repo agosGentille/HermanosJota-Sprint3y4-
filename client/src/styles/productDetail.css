@@ -1,14 +1,61 @@
-
 .detalle_producto {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.detalle_producto img {
+.producto-img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.imagen-principal {
+  width: 100%; 
+  max-width: 400px; 
+  border-radius: 8px;
+}
+
+.imagen-zoom {
   width: 100%;
   border-radius: 8px;
   background-color: rgba(240, 230, 211, 0.8);
+  transition: transform 0.0s ease;
+  transform-origin: center center;
+  cursor: zoom-in;
+}
+
+.imagen-zoom:hover {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.5);
+  z-index: 2000;
+  cursor: zoom-out;
+}
+
+.miniaturas {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 10px;
+  width: 30%
+}
+
+.miniatura {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.6;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.miniatura.activo {
+  opacity: 1;
+  border-color: #c47a6d;
 }
 
 .detalle_contenido {
@@ -28,9 +75,7 @@
   font-size: 2rem;
   text-align: center;
   color: #333;
-  font-family: "Playfair Display", sans-serif;
 }
-
 .detalle_info {
   display: flex;
   flex-direction: column;
@@ -60,53 +105,44 @@
 }
 
 @media (min-width: 768px) {
-    .detalle_producto {
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 30px;
-        justify-content: center;
-        margin-top: 10vh;
-        margin-bottom: 15vh;
-    }
+  .detalle_producto {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 30px;
+    justify-content: center;
+  }
 
-    .detalle_producto img {
-        width: 50%;
-    }
+  .producto-img {
+    flex: 1;
+    max-width: 500px;
+  }
 
-    .detalle_info {
-        width: 50%;
-    }
-
-    .detalle_producto h2 {
-        font-size: 28px;
-        text-align: left;
-    }
-
-    .btn-agregarcarrito {
-        width: auto;
-        padding: 20px 40px;
-    }
+  .detalle_contenido {
+    flex: 1;
+    max-width: 500px;
+  }
 }
 
 @media (min-width: 1024px) {
-    header {
-        height: 80px;
-    }
+  header {
+    height: 80px;
+  }
 
-    body {
-        padding-top: 80px;
-    }
+  body {
+    padding-top: 80px;
+  }
 
-    .detalle_producto img {
-        width: 500px;
-    }
+  .detalle_producto {
+    margin-top: 10vh;
+    margin-bottom: 20vh;
+  }
 
-    .detalle_producto {
-        margin-top: 10vh;
-        margin-bottom: 20vh;
-    }
+  .imagen-principal {
+    max-width: 500px;
+  }
 
-    .detalle_producto h2 {
-        font-size: 30px;
-    }
+  .detalle_producto h2 {
+    font-size: 30px;
+  }
 }
+
