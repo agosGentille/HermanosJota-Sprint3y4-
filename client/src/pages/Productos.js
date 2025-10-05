@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/StyleProductos.css";
+import { Link } from "react-router-dom";
+
 
 function Productos() {
   // Estados principales
@@ -291,8 +293,12 @@ function Productos() {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="fondo-tarjeta">
+                  <Link to={`/ProductDetail/${prod.id}`} className="link-producto">
                   <div className="info-producto">
+                    
                     <h3>{prod.titulo}</h3>
+
+
                   </div>
 
                   <div className="tarjeta-foto">
@@ -311,6 +317,7 @@ function Productos() {
                   <div className="info-producto">
                     <p>${prod.Precio.toLocaleString("es-AR")}</p>
                   </div>
+                  </Link>
 
                   <button
                     className="btn-agregarcarrito"
