@@ -3,7 +3,7 @@ import "../styles/StyleProductos.css";
 import { Link } from "react-router-dom";
 
 
-function Productos() {
+function Productos({onAddToCart}) {
   // Estados principales
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -292,6 +292,7 @@ function Productos() {
                 className="tarjeta-producto mostrar"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
+                
                 <div className="fondo-tarjeta">
                   <Link to={`/ProductDetail/${prod.id}`} className="link-producto">
                   <div className="info-producto">
@@ -301,18 +302,18 @@ function Productos() {
 
                   </div>
 
-                  <div className="tarjeta-foto">
-                    <img
-                      src={prod.imagen}
-                      alt={prod.titulo}
-                      className="img-normal"
-                    />
-                    <img
-                      src={prod.imagenHover}
-                      alt={prod.titulo}
-                      className="img-hover"
-                    />
-                  </div>
+                    <div className="tarjeta-foto">
+                      <img
+                        src={prod.imagen}
+                        alt={prod.titulo}
+                        className="img-normal"
+                      />
+                      <img
+                        src={prod.imagenHover}
+                        alt={prod.titulo}
+                        className="img-hover"
+                      />
+                    </div>
 
                   <div className="info-producto">
                     <p>${prod.Precio.toLocaleString("es-AR")}</p>
@@ -322,7 +323,7 @@ function Productos() {
                   <button
                     className="btn-agregarcarrito"
                     type="button"
-                    data-id={prod.id}
+                    onClick={() => onAddToCart(prod)}
                   >
                     <span className="material-symbols-outlined icono-comprar">
                       shopping_bag

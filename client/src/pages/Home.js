@@ -15,7 +15,7 @@ import Carrusel_Principios from '../components/ListNavegable'
 
 import ListProductos from '../components/TarjetasProductos';
 
-function Home() {
+function Home({ onAddToCart }) {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -81,6 +81,7 @@ function Home() {
                 <ListProductos
                   productos={productos.filter(p => p.masVendidos)}
                   mostrarMax={3}
+                  onAddToCart={onAddToCart}
                 />
               )}
             </div>
@@ -163,6 +164,7 @@ function Home() {
                 <ListProductos
                   productos={obtenerAleatorios(productos, 3)}
                   mostrarMax={3}
+                  onAddToCart={onAddToCart}
                 />
               )}
             </div>
