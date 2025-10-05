@@ -178,6 +178,8 @@ body {
 
 .contenedor-tarjetas {
   display: flex;
+  flex-wrap: nowrap;
+  gap: 20px; 
   transition: transform 0.4s ease-in-out;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -185,6 +187,7 @@ body {
   -ms-overflow-style: none;  
   scrollbar-width: none;  
   margin-bottom: 20px;   
+  padding: 15px;
 }
 
 .contenedor-tarjetas::-webkit-scrollbar {
@@ -214,7 +217,7 @@ body {
 
 .tarjeta-inspiracion img{
   width: 100%;
-  height: auto;
+  height: 100%;
   filter: brightness(70%);
   transition: transform 0.4s ease;
 }
@@ -506,6 +509,7 @@ body {
     justify-content: center;
     width: 100%;
     max-width: 100%;
+    height: 700px;
   }
 
   .tarjeta-inspiracion{
