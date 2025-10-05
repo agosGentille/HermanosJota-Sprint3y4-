@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import '../styles/productDetail.css';
 
+ 
 export default function ProductDetail({ onAddToCart }) {
   const { id } = useParams(); // obtenemos el id de la URL
   const navigate = useNavigate();
@@ -9,6 +10,8 @@ export default function ProductDetail({ onAddToCart }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentImage, setCurrentImage] = useState(0);
+  const [images, setImages] = useState([]);
+  const [backgroundPos, setBackgroundPos] = useState("0% 0%");
 
   useEffect(() => {
     setLoading(true);
@@ -17,36 +20,46 @@ export default function ProductDetail({ onAddToCart }) {
         if (!res.ok) throw new Error("Producto no encontrado");
         return res.json();
       })
-      .then(data => setProducto(data))
+      .then(data => {
+        setProducto(data);
+        setImages([`http://localhost:4000${data.imagen}`, data.imagenHover ? `http://localhost:4000${data.imagenHover}` : null
+        ].filter(Boolean));
+      })
       .catch(err => setError(err.message))
       .finally(() => setLoading(false));
   }, [id]);
 
-
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } = e.target.getBoundingClientRect();
+    const x = ((e.pageX - left) / width) * 100;
+    const y = ((e.pageY - top) / height) * 100;
+    setBackgroundPos(`${x}% ${y}%`);
+  };
+  
   if (loading) return <p>Cargando...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
   if (!producto) return null;
   
-  const images = [`http://localhost:4000${producto.imagen}`, producto.imagenHover ? `http://localhost:4000${producto.imagenHover}` : null];
-
-  
-
   return (
       <div>
         <div className="detalle_producto">
           <div className="producto-img">
-            <img src={images[currentImage]} alt={producto.titulo} className="imagen-principal imagen-zoom"/>
+            <div className="zoom-container">
+              <div className="zoom-image">
+                <img src={images[currentImage]} alt={producto.titulo} className="imagen-principal" onMouseMove={handleMouseMove}/>
+              </div>
+              <div className="zoom-lens" style={{backgroundImage: `url(${images[currentImage]})`, backgroundPosition: backgroundPos}}></div>
+            </div>
             <div className="miniaturas">
-                {images.map((img, idx) => (
-                <img key={idx} src={img} alt={`miniatura ${idx}`} className={`miniatura ${currentImage === idx ? "activo" : ""}`} onClick={() => setCurrentImage(idx)} />
-            ))}
+              {images.map((img, idx) => (
+                <img key={idx} src={img} alt={`miniatura ${idx}`} className={`miniatura ${currentImage === idx ? "activo" : ""}`} onClick={() => setCurrentImage(idx)}/>
+              ))}
             </div>
           </div>
           <div className="detalle_contenido">
             <h2>{producto.titulo}</h2>
             <p className="precio">${producto.Precio ?? "Consultar"}.-</p>
             <p>{producto.descripcion}</p>
-
             <div className="detalle_info">
               {producto.medidas && <p><strong>Medidas:</strong> {producto.medidas}</p>}
               {producto.materiales && <p><strong>Materiales:</strong> {producto.materiales}</p>}
@@ -69,13 +82,10 @@ export default function ProductDetail({ onAddToCart }) {
               {producto.sostenibilidad && <p><strong>Sostenibilidad:</strong> {producto.sostenibilidad}</p>}
               {producto.colchon && <p><strong>Colchón:</strong> {producto.colchon}</p>}
             </div>
-
-            <button className="btn-agregarcarrito" onClick={() => onAddToCart(producto)}>
-              Añadir al carrito
-            </button>
+            <button className="btn-agregarcarrito" onClick={() => onAddToCart(producto)}>Añadir al carrito</button>
           </div>
         </div>
       </div>
     );
-
 }
+
