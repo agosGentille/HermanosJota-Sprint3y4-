@@ -1,6 +1,9 @@
 import React from "react";
 import "../styles/Contacto.css";
 import ContactForm from "../components/ContactForm";
+import logo from "../images/logo.svg";
+import videoMP4 from "../public/videos/Video-institucional-Hermanos-Jota.mp4";
+import videoWEBM from "../public/videos/Video-institucional-Hermanos-Jota.webm";
 
 function App() {
   return (
@@ -78,16 +81,9 @@ function App() {
           <h2 className="nuestra-historia__texto__subtitulo">
             Video Institucional - Hermanos Jota
           </h2>
-          <video poster="Images/logo.svg" preload="metadata" controls>
-            <source
-              src="Videos/Video-institucional-Hermanos-Jota.mp4"
-              type="video/mp4"
-            />
-            <source
-              src="Videos/Video institucional Hermanos Jota.webm"
-              type="video/webm"
-            />
-            <img src="Images/exclamation.png" alt="Video no soportado" />
+          <video poster={logo} preload="metadata" controls autoPlay={false}>
+            <source src={videoMP4} type="video/mp4" />
+            <source src={videoWEBM} type="video/webm" />
             Tu navegador no soporta el elemento video.
           </video>
         </div>
