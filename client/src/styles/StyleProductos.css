@@ -36,36 +36,6 @@
   font-size:14px;
 }
 
-.btn-agregarcarrito{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  color:#d4a437;                 
-  background-color:transparent;
-  border-top:1px solid #d4a437;
-  padding:10px;
-  border-radius:0 0 10px 10px;
-  text-align:center;
-  font-size:18px;
-  cursor:pointer;
-  transition:all .3s ease;
-}
-.btn-agregarcarrito:hover{
-  background-color:#d4a437;
-  color:#fff;
-}
-.btn-agregarcarrito .material-symbols-outlined{
-  font-size:24px;
-  line-height:1;
-  color:currentColor !important; 
-}
-.btn-agregarcarrito .sep{
-  color:currentColor;
-  margin:0 6px;
-  opacity:.95;
-}
-
 .contenedor-tarjetas{
   display:grid;
   grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
@@ -73,89 +43,6 @@
   margin:20px;
   justify-items:stretch;
 }
-
-.tarjeta-producto{
-  background-color:#a0522d;
-  border-radius:12px;
-  box-shadow:0 4px 6px rgba(0,0,0,.1);
-  padding:25px 0 0 0;
-  transition:all .3s ease;
-  margin:15px;
-  scroll-snap-align:start;
-  opacity:0;
-  transform:translateX(50px);
-  min-width:300px;
-  max-width:360px;
-  display:flex;
-  flex-direction:column;
-}
-.tarjeta-producto.mostrar{
-  opacity:1;
-  transform:translateX(0);
-}
-.tarjeta-producto:hover{
-  transform:translateY(-8px);
-  box-shadow:0 12px 20px rgba(0,0,0,.2);
-}
-
-.fondo-tarjeta{
-  background-color:#fff;
-  border-radius:50px 50px 12px 12px;
-  flex:1;
-  display:flex;
-  flex-direction:column;
-}
-
-.tarjeta-foto{
-  position:relative;
-  width:100%;
-  text-align:center;
-  min-height:200px;
-}
-.tarjeta-foto img{
-  width:80%;
-  height:200px;
-  object-fit:contain;
-  border-radius:8px;
-  transition:opacity .4s ease;
-  position:absolute;
-  inset:0;
-  margin:auto;
-}
-.img-normal{opacity:1; z-index:1;}
-.img-hover{opacity:0; z-index:2;}
-.tarjeta-foto:hover .img-normal{opacity:0;}
-.tarjeta-foto:hover .img-hover{opacity:1;}
-
-
-.info-producto{
-  padding:15px;
-  flex-grow:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-.info-producto h3{
-  font-family:"Playfair Display", sans-serif;
-  font-size:1.2rem;
-  color:#a0522d;
-  margin:15px 0;
-  text-align:center;
-  letter-spacing:1px;
-}
-.tarjeta-producto h3{
-  font-family:"Playfair Display", sans-serif;
-  color:#a0522d;
-  margin:10px 0 20px 0;
-  text-align:center;
-  letter-spacing:1px;
-}
-.tarjeta-producto p{
-  color:#333;
-  text-align:center;
-  font-weight:600;
-}
-
 
 .productos-container{
   display:flex;
@@ -329,11 +216,6 @@
     color:#c47a6d;
     font-size:13px;
     box-shadow:0 2px 4px rgba(0,0,0,.1);
-  }
-
-  .contenedor-tarjetas{
-    margin:30px;
-    grid-template-columns:repeat(4, 1fr);
   }
 
   main{
