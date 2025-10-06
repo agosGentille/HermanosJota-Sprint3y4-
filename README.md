@@ -112,19 +112,18 @@ npm start
 
 ---
 
-## Características Destacadas por Sección
+## División de Tareas
 
-### 🏠 Home (Agostina Gentille)
+### 🏠 Home y Header (Agostina Gentille)
 - Carrusel principal con imágenes destacadas
 - Sección de Best Sellers
-- Inspiraciones de diseño
-- Acabados naturales
+- Modal de Inicio de Sesión y Registro
 - Componente reutilizable de tarjetas de productos
 
 ### 🛍️ Productos (Juan Manuel Vila)
 - Catálogo completo de productos
 - Sistema de filtros por categoría, precio y certificación
-- Búsqueda en tiempo real
+- Búsqueda dinámica en tiempo real
 - Ordenamiento múltiple
 - Diseño responsive
 
