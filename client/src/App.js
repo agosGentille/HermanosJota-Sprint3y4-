@@ -57,6 +57,12 @@ function App() {
 
   return (
     <Router>
+      {/*Es el "provider" del router. TODO lo que use rutas (Links, useParams, useNavigate, <Routes>...) 
+      debe estar dentro de este componente.  Si ponemos x ej el Header fuera del Router, los Link 
+      dentro de Header no funcionarían.*/}
+      {
+        /*Se usa header y footer fuera de <Routes> para que se renderice en TODAS las pags */
+      }
       <Header toggleCarrito={toggleCarrito} carrito={carrito} />
       <CarritoLateral
         isAbierto={isCarritoAbierto}
@@ -77,6 +83,10 @@ function App() {
         <Route path="/ProductDetail/:id" element={
           <ProductDetail onAddToCart={carritoFunciones.agregarProducto} />
         } />
+        {/*path: Es la ruta de la URL. Puede ser estática "/contacto" o dinámica como en "/ProductDetail/:id" 
+         donde el :id es un parámetro de ruta al cual se accede por useParams()*/}
+         {/*element: Es el componente React que se renderiza cuando la URL coincide con 
+         el path, puede incluir props */}
       </Routes>
       <Footer />
     </Router>

@@ -6,15 +6,42 @@
   font-family: sans-serif;
 }
 
-/* =========================================================
-   🎯 SECCIÓN: TARJETAS DE PRODUCTOS
-========================================================= */
-.contenedor-tarjetas {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  margin: 20px;
-  justify-items: stretch;
+.buscador-productos{
+  display:flex;
+  flex-direction:column;   
+  align-items:stretch;     
+  gap:12px;
+  margin:20px;
+  color:#c47a6d;
+}
+
+.buscador-productos input[type="search"],
+.buscador-productos select{
+  width:100%;
+  max-width:100%;
+  border:none;
+  border-bottom:2px solid #a0522d;
+  border-radius:8px;
+  box-shadow:0 4px 8px rgba(0,0,0,.1);
+  padding:8px 10px;
+  background-color:rgba(245,230,211,.8);
+  color:#c47a6d;
+  font-size:14px;
+  height:36px;
+}
+
+.buscador-productos label{
+  align-self:flex-start;
+  font-weight:500;
+  font-size:14px;
+}
+
+.contenedor-tarjetas{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
+  gap:20px;
+  margin:20px;
+  justify-items:stretch;
 }
 
 .tarjeta-producto {
@@ -356,8 +383,9 @@
     padding: 30px 40px;
   }
 
-  .contenedor-tarjetas {
-    margin: 30px;
-    grid-template-columns: repeat(4, 1fr);
+  main{
+    z-index:1;
+    margin-top:20px;
+    padding:1rem;
   }
 }

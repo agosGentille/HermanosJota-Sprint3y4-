@@ -32,14 +32,14 @@ body {
 
 .slide {
   min-width: 100%;
-  height: 90vh;
+  height: 70vh;
   position: relative;
 }
 
 .slide img {
   width: 100%;
   display: block;
-  height: 100vh;
+  height: 100%;
   object-fit: cover;
   filter: brightness(80%);
   background-color: #f5e6d3;
@@ -166,7 +166,7 @@ body {
   text-align: left;
   color: #333;
   margin-left: 35px;
-  width: 80vw;
+  width: 80%;
 }
 
 .carousel-container-productos {
@@ -178,13 +178,16 @@ body {
 
 .contenedor-tarjetas {
   display: flex;
+  flex-wrap: nowrap;
+  gap: 20px; 
   transition: transform 0.4s ease-in-out;
   overflow-x: auto;
-  scroll-snap-type: x mandatory; /* Snap al final de cada tarjeta */
+  scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;  
   scrollbar-width: none;  
   margin-bottom: 20px;   
+  padding: 15px;
 }
 
 .contenedor-tarjetas::-webkit-scrollbar {
@@ -195,7 +198,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   height: auto;
   gap: 20px;
 }
@@ -213,7 +217,7 @@ body {
 
 .tarjeta-inspiracion img{
   width: 100%;
-  height: auto;
+  height: 100%;
   filter: brightness(70%);
   transition: transform 0.4s ease;
 }
@@ -503,11 +507,14 @@ body {
   .contenedor-inspiraciones{
     flex-direction: row;
     justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    height: 700px;
   }
 
   .tarjeta-inspiracion{
     width: 30%;
-    height: 80vh;
+    height: 80%;
     display: inline-block;
   }
 

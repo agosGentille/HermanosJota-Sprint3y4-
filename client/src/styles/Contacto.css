@@ -41,8 +41,11 @@ main {
   display: block;
   position: relative;
   z-index: 1;
-  margin-top: clamp(80px, 10vh, 120px);
   padding: 1rem;
+}
+
+.principal {
+  margin-top: clamp(100px, 10vh, 150px);
 }
 
 section {
@@ -219,6 +222,16 @@ section {
   font-weight: var(--texto-peso-grueso);
 }
 
+.contacto__formulario.fade-out {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.contacto__formulario.fade-in {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
 /*  seccion contenido digital */
 .contacto-digital {
   max-width: 900px;
@@ -260,11 +273,17 @@ section {
 
 .contacto__ubicacion {
   max-width: 900px;
+  height: 450px;
   margin: 3rem auto;
-  overflow-x: auto;
   background-color: var(--color-background);
   border-radius: 8px;
   box-shadow: 0 2px 6px black;
+}
+
+.contacto__ubicacion iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
 }
 
 .contacto__container {
@@ -288,10 +307,12 @@ section {
 
 .contacto__container .contacto-digital {
   grid-area: digital;
-  width: 800px;
+  width: 100%;
 }
+
 .contacto__container .contacto__ubicacion {
   grid-area: ubicacion;
+  width: 100%;
 }
 /*  RESPONSIVIDAD  */
 
@@ -299,7 +320,8 @@ section {
 @media (max-width: 1700px) {
   .nuestra-historia,
   .contacto,
-  .contacto-digital {
+  .contacto-digital,
+  .contacto__ubicacion {
     max-width: 800px;
     margin: 2.5rem auto;
   }
@@ -307,13 +329,9 @@ section {
 
 @media (max-width: 1400px) {
   .contacto__container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto;
-    grid-template-areas:
-      "titulo1"
-      "digital"
-      "titulo2"
-      "ubicacion";
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
   }
 }
 
@@ -331,8 +349,25 @@ section {
     padding: 1.5rem;
   }
 
+  .contacto__ubicacion {
+    max-width: 700px;
+    margin: 2rem auto;
+  }
+
   .nuestra-historia video {
     margin: 1.5rem auto 0 auto;
+  }
+
+  .contacto-digital {
+    height: 100%;
+  }
+
+  .contacto-digital td {
+    padding: 0.8rem;
+  }
+
+  .contacto-digital a {
+    font-size: 1.2rem;
   }
 }
 
@@ -344,6 +379,11 @@ section {
     max-width: 600px;
     margin: 1.5rem auto;
     padding: 1.2rem;
+  }
+
+  .contacto__ubicacion {
+    max-width: 600px;
+    margin: 1.5rem auto;
   }
 
   .contacto__titulo {
@@ -375,6 +415,12 @@ section {
     max-width: 100%;
     margin: 1rem auto;
     padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .contacto__ubicacion {
+    max-width: 100%;
+    margin: 1rem auto;
     border-radius: 8px;
   }
 
@@ -430,6 +476,12 @@ section {
   .contacto-digital {
     margin: 0.8rem auto;
     padding: 0.8rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .contacto__ubicacion {
+    margin: 0.8rem auto;
     border-radius: 6px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }

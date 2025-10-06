@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/StyleProductos.css";
+import TarjetaProductos from "../components/TarjetasProductos"
 import { Link } from "react-router-dom";
 
 
@@ -287,54 +288,8 @@ function Productos({onAddToCart}) {
           {productosOrdenados.length === 0 ? (
             <p className="mensaje-vacio">No se encontraron productos</p>
           ) : (
-            productosOrdenados.map((prod, index) => (
-              <div
-                key={prod.id}
-                className="tarjeta-producto mostrar"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                
-                <div className="fondo-tarjeta">
-                  <Link to={`/ProductDetail/${prod.id}`} className="link-producto">
-                  <div className="info-producto">
-                    
-                    <h3>{prod.titulo}</h3>
-
-
-                  </div>
-
-                    <div className="tarjeta-foto">
-                      <img
-                        src={prod.imagen}
-                        alt={prod.titulo}
-                        className="img-normal"
-                      />
-                      <img
-                        src={prod.imagenHover}
-                        alt={prod.titulo}
-                        className="img-hover"
-                      />
-                    </div>
-
-                  <div className="info-producto">
-                    <p>${prod.Precio.toLocaleString("es-AR")}</p>
-                  </div>
-                  </Link>
-
-                  <button
-                    className="btn-agregarcarrito"
-                    type="button"
-                    onClick={() => onAddToCart(prod)}
-                  >
-                    <span className="material-symbols-outlined icono-comprar">
-                      shopping_bag
-                    </span>
-                    <span className="sep">|</span> Comprar
-                  </button>
-                </div>
-              </div>
-            ))
-          )}
+            <TarjetaProductos productos={productosOrdenados}/>
+          )}
         </div>
       </section>
     </main>

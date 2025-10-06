@@ -144,8 +144,10 @@ npm start
 ### 📞 Contacto (Mariano Insaurralde)
 - Formulario de contacto completo
 - Validaciones de campos
+- Validación con ReCaptcha
 - Experiencia de usuario mejorada
 - Integración con backend
+- Integración de un mapa de Google Maps
 
 ---
 
