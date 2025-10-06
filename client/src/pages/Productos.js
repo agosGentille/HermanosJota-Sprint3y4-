@@ -287,7 +287,8 @@ function Productos({onAddToCart}) {
           {productosOrdenados.length === 0 ? (
             <p className="mensaje-vacio">No se encontraron productos</p>
           ) : (
-            <TarjetaProductos productos={productosOrdenados}/>
+            <TarjetaProductos productos={productosOrdenados}
+            onAddToCart={onAddToCart}/>
           )}
         </div>
       </section>
