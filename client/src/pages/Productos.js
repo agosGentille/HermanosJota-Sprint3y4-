@@ -18,7 +18,6 @@ function Productos({onAddToCart}) {
   const [certificadoSeleccionado, setCertificadoSeleccionado] = useState(false);
   const [garantiaSeleccionada, setGarantiaSeleccionada] = useState(false);
   const [mostrarFiltros, setMostrarFiltros] = useState(false);
-  const [categoriasFiltro, setCategoriasFiltro] = useState([]);
 
   /* Carga inicial de productos */
   useEffect(() => {
@@ -37,13 +36,6 @@ function Productos({onAddToCart}) {
         }));
 
         setProductos(productosConUrl);
-        let categoriasFiltro = [];
-        data.forEach(p => {
-          if (!categoriasFiltro.includes(p.categoria)) {
-            categoriasFiltro.push(p.categoria);
-          }
-        });
-        setCategoriasFiltro(categoriasFiltro);
         setLoading(false);
       })
       .catch((err) => {
@@ -79,6 +71,14 @@ function Productos({onAddToCart}) {
   const limiteBajo = Math.round(precioPromedio * 0.8);
   const limiteAlto = Math.round(precioPromedio * 1.2);
 
+
+  //Creo las categorias de acuerdo a los productos que hay en catalogo en el momento
+  const categoriasProductos = Array.from(
+    new Set(
+      productos.map((p) => p.titulo?.trim().split(" ")[0].toLowerCase())
+    )
+  );
+
   // Filtro combinado
   const productosFiltrados = productos.filter((p) => {
     const coincideBusqueda = p.titulo
@@ -86,11 +86,10 @@ function Productos({onAddToCart}) {
       .includes(filtro.toLowerCase());
 
     // Categoría (primer palabra del título)
-    // Categoría (usa el campo real del producto)
-  const coincideCategoria =
-    categoriaSeleccionadas.length === 0 ||
-    categoriaSeleccionadas.includes(p.categoria);
-
+    const categoria = p.titulo.trim().split(" ")[0].toLowerCase();
+    const coincideCategoria =
+      categoriaSeleccionadas.length === 0 ||
+      categoriaSeleccionadas.includes(categoria);
 
     // Precio
     let coincidePrecio = true;
@@ -125,10 +124,10 @@ function Productos({onAddToCart}) {
   };
 
   const handleCategoriaChange = (e) => {
-    const categoria = e.target.value;
+    const nombre = e.target.value;
     const checked = e.target.checked;
     setCategoriaSeleccionadas((prev) =>
-      checked ? [...prev, categoria] : prev.filter((cat) => cat !== categoria)
+      checked ? [...prev, nombre] : prev.filter((cat) => cat !== nombre)
     );
   };
 
@@ -174,7 +173,7 @@ function Productos({onAddToCart}) {
         <div className="filtro-seccion">
           <h3>Categoría</h3>
           <ul>
-            {categoriasFiltro.map((cat, i) => (
+            {categoriasProductos.map((cat, i) => (
               <li key={i}>
                 <input
                   type="checkbox"
