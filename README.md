@@ -4,25 +4,11 @@
 
 ## Grupo 11 - Code Breakers
 
-- **Fabrizio, Jazmin Maia** - ProductDetail (Frontend + Backend)
-- **Gentille, Agostina Abril** - Home + Header + Footer (Frontend + Backend)
-- **Giménez, Agustín José** - Carrito Lateral y Carrito (Frontend + Backend)
-- **Insaurralde, Mariano Gastón** - Contacto (Frontend + Backend)
-- **Vila, Juan Manuel** - Pantalla Productos (Frontend + Backend)
-
----
-
-## División de Tareas
-
-Cada miembro del equipo continuó con la misma división de responsabilidades que en el trabajo práctico anterior, desarrollando tanto la parte frontend como backend de sus secciones asignadas:
-
-- **Jazmin Fabrizio**: Se encargó del componente ProductDetail, implementando la vista detallada de productos y la conexión con el backend correspondiente.
-- **Agostina Gentille**: Desarrolló la página Home, Header y Footer, asegurando la navegación principal y la estructura base de la aplicación.
-- **Agustín Giménez**: Implementó el Carrito Lateral y la página completa del Carrito, gestionando el estado global del carrito de compras.
-- **Mariano Insaurralde**: Creó la página de Contacto con formularios funcionales y validaciones.
-- **Juan Manuel Vila**: Desarrolló la pantalla de Productos con sistema de filtros, búsqueda y catálogo completo.
-
-Cada integrante realizó tanto el desarrollo frontend (componentes React, estilos, estado) como las partes backend necesarias (rutas, controladores, lógica de negocio) para sus secciones asignadas.
+- **Fabrizio, Jazmin Maia** - ProductDetail: con información detallada, galería de imágenes y Zoom interactivo al pasar el cursor
+- **Gentille, Agostina Abril** - Home + Header: con Modales de Inicio de Sesión y Registro + Footer 
+- **Giménez, Agustín José** - Carrito Lateral y Carrito 
+- **Insaurralde, Mariano Gastón** - Contacto: Formulario de Registro, Mapa y Sección "Nuestra Historia"
+- **Vila, Juan Manuel** - Listado de Productos: con filtros para ordenar, seleccionar por relevancia y buscar de forma dinámica
 
 ---
 
@@ -112,24 +98,25 @@ npm start
 
 ---
 
-## División de Tareas
+## Características Destacadas por Sección
 
-### 🏠 Home y Header (Agostina Gentille)
+### 🏠 Home (Agostina Gentille)
 - Carrusel principal con imágenes destacadas
 - Sección de Best Sellers
-- Modal de Inicio de Sesión y Registro
+- Inspiraciones de diseño
+- Acabados naturales
 - Componente reutilizable de tarjetas de productos
 
 ### 🛍️ Productos (Juan Manuel Vila)
 - Catálogo completo de productos
 - Sistema de filtros por categoría, precio y certificación
-- Búsqueda dinámica en tiempo real
+- Búsqueda en tiempo real
 - Ordenamiento múltiple
 - Diseño responsive
 
 ### 📦 ProductDetail (Jazmin Fabrizio)
-- Vista detallada de productos
-- Galería de imágenes
+- Vista detallada de productos 
+- Galería de imágenes con **efecto zoom al pasar el cursor (hover)**
 - Información técnica completa
 - Integración con carrito de compras
 
@@ -143,11 +130,10 @@ npm start
 ### 📞 Contacto (Mariano Insaurralde)
 - Formulario de contacto completo
 - Validaciones de campos
-- Validación con ReCaptcha
 - Experiencia de usuario mejorada
 - Integración con backend
-- Integración de un mapa de Google Maps
 
+Cada integrante realizó tanto el desarrollo frontend (componentes React, estilos, estado) como las partes backend necesarias (rutas, controladores, lógica de negocio) para sus secciones asignadas.
 ---
 
 ## Estado del Proyecto
